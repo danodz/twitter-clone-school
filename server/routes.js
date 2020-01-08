@@ -2,17 +2,19 @@ const router = require('express').Router();
 
 const data = require('./data');
 
+const MAX_DELAY = 1000; // TODO: Change me back to 3000
+
 // Our server is very lean and quick, given that it doens't actually connect
 // to a database or deal with any sort of scale!
 // We want to provide a more realistic experience, so we'll do 2 things for
 // all responses:
-// - Add an arbitrary delay of 0-3 seconds
+// - Add an arbitrary delay of 0-2 seconds
 // - Add a 5% chance of a 500 error
 const simulateProblems = (res, data) => {
-  const delay = Math.random() * 4000;
+  const delay = Math.random() * MAX_DELAY;
 
   setTimeout(() => {
-    const shouldError = Math.random() <= 0.95;
+    const shouldError = Math.random() <= 0.05;
 
     if (shouldError) {
       res.send(500);

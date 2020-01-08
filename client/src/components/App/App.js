@@ -13,14 +13,14 @@ import CenteredSpinner from '../CenteredSpinner';
 import SadScreen from '../SadScreen';
 
 const App = () => {
-  const [profile, setProfile] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState(null);
   const [status, setStatus] = React.useState('loading');
 
   React.useEffect(() => {
     fetch('/me/profile')
       .then(res => res.json())
       .then(data => {
-        setProfile(data);
+        setCurrentUser(data.profile);
         setStatus('idle');
       })
       .catch(err => {
@@ -38,7 +38,7 @@ const App = () => {
               {status === 'idle' ? (
                 <Switch>
                   <Route exact path="/">
-                    <HomeFeed />
+                    <HomeFeed currentUser={currentUser} />
                   </Route>
                   <Route path="/:handle">
                     <ProfileFeed />

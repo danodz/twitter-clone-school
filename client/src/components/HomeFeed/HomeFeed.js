@@ -1,12 +1,15 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import Header from "../Header";
+import Header from '../Header';
+import ComposeTweet from '../ComposeTweet';
 
-const HomeFeed = () => {
+const HomeFeed = ({ currentUser }) => {
+  console.log({ currentUser });
   return (
     <Wrapper>
       <Header>Home</Header>
+      <ComposeTweet currentUser={currentUser} />
     </Wrapper>
   );
 };
