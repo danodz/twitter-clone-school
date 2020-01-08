@@ -1,11 +1,11 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import styled from "styled-components";
-import { Icon } from "react-icons-kit";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+import { Icon } from 'react-icons-kit';
 
 const NavigationLink = ({ href, name, icon }) => {
   return (
-    <Wrapper to={href}>
+    <Wrapper to={href} exact>
       <InnerWrapper>
         <Icon size={24} icon={icon} />
         <Name>{name}</Name>
@@ -35,9 +35,13 @@ const InnerWrapper = styled.div`
     right: 0;
     bottom: 3px;
     display: none;
-    content: "";
+    content: '';
     border-radius: 1000px;
     background: ${p => p.theme.colors.primary};
+  }
+
+  ${Wrapper}.active & {
+    color: ${p => p.theme.colors.primary};
   }
 
   ${Wrapper}:hover & {

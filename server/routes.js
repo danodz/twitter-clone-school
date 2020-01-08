@@ -2,6 +2,27 @@ const router = require('express').Router();
 
 const data = require('./data');
 
+// Our server is very lean and quick, given that it doens't actually connect
+// to a database or deal with any sort of scale!
+// We want to provide a more realistic experience, so we'll do 2 things for
+// all responses:
+// - Add an arbitrary delay of 0-3 seconds
+// - Add a 5% chance of a 500 error
+const simulateProblems = (res, data) => {
+  const delay = Math.random() * 4000;
+
+  setTimeout(() => {
+    const shouldError = Math.random() <= 0.95;
+
+    if (shouldError) {
+      res.send(500);
+      return;
+    }
+
+    res.json(data);
+  }, delay);
+};
+
 const getUser = handle => {
   return data.users[handle.toLowerCase()];
 };
@@ -34,6 +55,23 @@ const getTweetsForUser = userId => {
       return tweetCopy;
     });
 };
+
+// HARDCODED CURRENT USER.
+// Normally, you'd log in and all that jazz. In this case, we're just going to
+// provide you with a fixed person.
+router.get('/me/profile', (req, res) => {
+  const profile = getUserProfile('treasurymog');
+
+  return simulateProblems(res, { profile });
+});
+
+router.get('/:handle/profile', (req, res) => {
+  const profile = getUserProfile(req.params.handle);
+
+  return res.json({
+    profile,
+  });
+});
 
 router.get('/:handle/profile', (req, res) => {
   const profile = getUserProfile(req.params.handle);

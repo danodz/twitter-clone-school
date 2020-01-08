@@ -1,10 +1,16 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { COLORS } from "../../constants";
+import { COLORS } from '../../constants';
+
+import Heading from '../Heading';
 
 const Header = ({ children }) => {
-  return <Wrapper>{children}</Wrapper>;
+  return (
+    <Wrapper>
+      <Heading size="small">{children}</Heading>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.header`
