@@ -1,19 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import Logo from '../Logo';
+import { COLORS } from "../../constants";
 
-const Header = () => {
-  return (
-    <Wrapper>
-      <Logo size={42} />
-    </Wrapper>
-  );
+const Header = ({ children }) => {
+  return <Wrapper>{children}</Wrapper>;
 };
 
 const Wrapper = styled.header`
-  width: 275px;
-  padding: 0 ${p => p.theme.unit * 3}px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 1px solid ${COLORS.gray[200]};
 `;
 
 export default Header;
