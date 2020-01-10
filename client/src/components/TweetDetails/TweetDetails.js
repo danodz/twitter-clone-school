@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 import useApiEndpoint from '../../hooks/use-api-endpoint.hook';
 
@@ -7,8 +8,9 @@ import CenteredSpinner from '../CenteredSpinner';
 import SadScreen from '../SadScreen';
 import Tweet from '../Tweet';
 
-const Feed = ({ handle, mode }) => {
-  const [data, status] = useApiEndpoint('/me/feed');
+const TweetDetails = () => {
+  const { tweetId } = useParams();
+  const [data, status] = useApiEndpoint(`/tweet/${tweetId}`);
 
   if (status === 'loading') {
     return <CenteredSpinner />;
@@ -16,18 +18,7 @@ const Feed = ({ handle, mode }) => {
     return <SadScreen />;
   }
 
-  return (
-    <Wrapper>
-      {data.tweets.map(tweet => {
-        return <Tweet key={tweet.id} data={tweet} />;
-      })}
-    </Wrapper>
-  );
+  return <Tweet size="big" data={data.tweet} />;
 };
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export default Feed;
+export default TweetDetails;

@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 
 export default function useApiEndpoint(endpoint) {
   const [data, setData] = React.useState(null);
-  const [status, setStatus] = React.useState("loading");
+  const [status, setStatus] = React.useState('loading');
 
   React.useEffect(() => {
-    fetch(endpoint)
+    fetch(`/api${endpoint}`)
       .then(res => res.json())
       .then(data => {
         setData(data);
-        setStatus("idle");
+        setStatus('idle');
       })
       .catch(err => {
-        setStatus("error");
+        setStatus('error');
       });
   }, []);
 

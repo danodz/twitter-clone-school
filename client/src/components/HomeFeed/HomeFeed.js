@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import Header from "../Header";
-import ComposeTweet from "../ComposeTweet";
-import Divider from "../Divider";
-import Feed from "../Feed";
+import Header from '../Header';
+import ComposeTweet from '../ComposeTweet';
+import Divider from '../Divider';
+import Feed from '../Feed';
 
 const HomeFeed = ({ currentUser }) => {
   return (
