@@ -1,6 +1,7 @@
-const router = require('express').Router();
+const lodash = require("lodash");
+const router = require("express").Router();
 
-const data = require('./data');
+const data = require("./data");
 
 const MAX_DELAY = 1000; // TODO: Change me back to 3000
 
@@ -44,66 +45,72 @@ const getUserProfile = handle => {
   return mutableUser;
 };
 
-const getTweetsForUser = userId => {
+const denormalizeTweet = tweet => {
+  const tweetCopy = { ...tweet };
+
+  delete tweetCopy.authorHandle;
+
+  tweetCopy.author = getUserProfile(tweet.authorHandle);
+
+  return tweetCopy;
+};
+
+const getTweetsFromUser = userId => {
   return data.tweets
     .filter(tweet => tweet.authorHandle.toLowerCase() === userId.toLowerCase())
-    .map(tweet => {
-      const tweetCopy = { ...tweet };
-
-      delete tweetCopy.authorHandle;
-
-      tweetCopy.author = getUserProfile(tweet.authorHandle);
-
-      return tweetCopy;
-    });
+    .map(denormalizeTweet);
 };
 
 // HARDCODED CURRENT USER.
+const CURRENT_USER_HANDLE = "treasurymog";
 // Normally, you'd log in and all that jazz. In this case, we're just going to
 // provide you with a fixed person.
-router.get('/me/profile', (req, res) => {
-  const profile = getUserProfile('treasurymog');
+router.get("/me/profile", (req, res) => {
+  const profile = getUserProfile(CURRENT_USER_HANDLE);
 
   return simulateProblems(res, { profile });
 });
+router.get("/me/feed", (req, res) => {
+  const { followingIds } = data.users[CURRENT_USER_HANDLE];
 
-router.get('/:handle/profile', (req, res) => {
+  const relevantTweets = data.tweets
+    .filter(tweet => followingIds.includes(tweet.authorHandle))
+    .map(denormalizeTweet);
+
+  return simulateProblems(res, {
+    tweets: lodash.sortBy(relevantTweets, "timestamp").reverse()
+  });
+});
+
+router.get("/:handle/profile", (req, res) => {
   const profile = getUserProfile(req.params.handle);
 
   return res.json({
-    profile,
+    profile
   });
 });
 
-router.get('/:handle/profile', (req, res) => {
-  const profile = getUserProfile(req.params.handle);
+router.get("/:handle/tweets", (req, res) => {
+  const tweets = getTweetsFromUser(req.params.handle);
 
   return res.json({
-    profile,
+    tweets
   });
 });
 
-router.get('/:handle/tweets', (req, res) => {
-  const tweets = getTweetsForUser(req.params.handle);
-
-  return res.json({
-    tweets,
-  });
-});
-
-router.get('/:handle/following', (req, res) => {
+router.get("/:handle/following", (req, res) => {
   const user = getUser(req.params.handle);
   const following = user.followingIds.map(getUserProfile);
 
   return { following };
 });
-router.get('/:handle/followers', (req, res) => {
+router.get("/:handle/followers", (req, res) => {
   const user = getUser(req.params.handle);
   const followers = user.followerIds.map(getUserProfile);
 
   return { followers };
 });
-router.get('/:handle/likes', (req, res) => {
+router.get("/:handle/likes", (req, res) => {
   const user = getUser(req.params.handle);
   const followers = user.followerIds.map(getUserProfile);
 

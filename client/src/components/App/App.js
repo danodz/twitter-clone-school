@@ -1,32 +1,20 @@
-import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from "react";
+import styled, { ThemeProvider } from "styled-components";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { THEME } from '../../constants';
+import { THEME } from "../../constants";
+import useApiEndpoint from "../../hooks/use-api-endpoint.hook";
 
-import GlobalStyles from '../GlobalStyles';
-import Sidebar from '../Sidebar';
-import HomeFeed from '../HomeFeed';
-import ProfileFeed from '../ProfileFeed';
-import MaxWidthWrapper from '../MaxWidthWrapper';
-import CenteredSpinner from '../CenteredSpinner';
-import SadScreen from '../SadScreen';
+import GlobalStyles from "../GlobalStyles";
+import Sidebar from "../Sidebar";
+import HomeFeed from "../HomeFeed";
+import ProfileFeed from "../ProfileFeed";
+import MaxWidthWrapper from "../MaxWidthWrapper";
+import CenteredSpinner from "../CenteredSpinner";
+import SadScreen from "../SadScreen";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = React.useState(null);
-  const [status, setStatus] = React.useState('loading');
-
-  React.useEffect(() => {
-    fetch('/me/profile')
-      .then(res => res.json())
-      .then(data => {
-        setCurrentUser(data.profile);
-        setStatus('idle');
-      })
-      .catch(err => {
-        setStatus('error');
-      });
-  }, []);
+  const [data, status] = useApiEndpoint("/me/profile");
 
   return (
     <ThemeProvider theme={THEME}>
@@ -35,16 +23,16 @@ const App = () => {
           <Wrapper>
             <Sidebar />
             <Main>
-              {status === 'idle' ? (
+              {status === "idle" && data ? (
                 <Switch>
                   <Route exact path="/">
-                    <HomeFeed currentUser={currentUser} />
+                    <HomeFeed currentUser={data.profile} />
                   </Route>
                   <Route path="/:handle">
                     <ProfileFeed />
                   </Route>
                 </Switch>
-              ) : status === 'loading' ? (
+              ) : status === "loading" ? (
                 <CenteredSpinner />
               ) : (
                 <SadScreen />

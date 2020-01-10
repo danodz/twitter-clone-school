@@ -1,9 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import Avatar from '../Avatar';
+import Avatar from "../Avatar";
+import CharacterCounter from "../CharacterCounter";
+import Button from "../Button";
+import Spacer from "../Spacer";
+
+const LIMIT = 280;
 
 const ComposeTweet = ({ currentUser, handleSubmit }) => {
+  const [status, setStatus] = React.useState("");
+
   return (
     <Wrapper>
       <Avatar
@@ -12,8 +19,18 @@ const ComposeTweet = ({ currentUser, handleSubmit }) => {
         size={48}
       />
       <MainContent>
-        <Textarea placeholder="What's happening?" />
-        <Actions>TODO</Actions>
+        <Textarea
+          placeholder="What's happening?"
+          value={status}
+          onChange={ev => setStatus(ev.target.value)}
+        />
+        <Actions>
+          <CharacterCounter count={status.length} limit={LIMIT} />
+          <Spacer size={16} />
+          <Button disabled={status.length === 0 || status.length > LIMIT}>
+            Tweet
+          </Button>
+        </Actions>
       </MainContent>
     </Wrapper>
   );
@@ -38,8 +55,20 @@ const Textarea = styled.textarea`
   resize: none;
   padding: 12px;
   height: 100px;
+  color: #999;
+
+  &:focus {
+    outline: none;
+    &::placeholder {
+      color: #ccc;
+    }
+  }
 `;
 
-const Actions = styled.div``;
+const Actions = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
 
 export default ComposeTweet;
