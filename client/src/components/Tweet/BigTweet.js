@@ -13,10 +13,10 @@ const Tweet = ({ data }) => {
           src={data.author.avatarSrc}
           size={48}
         />
-        <div>
+        <UserDetails>
           <Name>{data.author.displayName}</Name>{' '}
           <Handle>@{data.author.handle}</Handle>
-        </div>
+        </UserDetails>
       </Header>
       <Body>{data.body}</Body>
     </Wrapper>
@@ -24,13 +24,17 @@ const Tweet = ({ data }) => {
 };
 
 const Wrapper = styled.article`
-  display: flex;
   padding: 12px;
   border-bottom: 1px solid ${p => p.theme.colors.gray[200]};
 `;
 
 const Header = styled.div`
   display: flex;
+  align-items: center;
+`;
+
+const UserDetails = styled.div`
+  margin-left: 15px;
 `;
 
 const MainContent = styled.div`
@@ -45,6 +49,7 @@ const TopRow = styled.div`
 `;
 
 const Name = styled.span`
+  display: block;
   font-weight: bold;
   color: ${p => p.theme.colors.gray[900]};
 `;

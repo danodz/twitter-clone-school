@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import Avatar from '../Avatar';
+import TweetActions from '../TweetActions';
 import { getHumanizedDate } from './Tweet.helpers';
 
 const SmallTweet = ({ data }) => {
@@ -22,6 +23,7 @@ const SmallTweet = ({ data }) => {
             </SecondaryIdentifiers>
           </TopRow>
           <Body>{data.body}</Body>
+          <TweetActions />
         </MainContent>
       </Article>
     </WrapperLink>
