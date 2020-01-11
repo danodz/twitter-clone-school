@@ -3,7 +3,6 @@ import styled, { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { THEME } from '../../constants';
-import useApiEndpoint from '../../hooks/use-api-endpoint.hook';
 
 import GlobalStyles from '../GlobalStyles';
 import Sidebar from '../Sidebar';
@@ -13,39 +12,51 @@ import SadScreen from '../SadScreen';
 import HomeFeed from '../HomeFeed';
 import ProfileFeed from '../ProfileFeed';
 import TweetDetails from '../TweetDetails';
+import CurrentUserContext, { CurrentUserProvider } from '../CurrentUserContext';
+import TweetsContext, { TweetsProvider } from '../TweetsContext';
 
 const App = () => {
-  const [data, status] = useApiEndpoint('/me/profile');
+  const [currentUser, authStatus] = React.useContext(CurrentUserContext);
 
   return (
+    <>
+      <Wrapper>
+        <Sidebar />
+        <Main>
+          {authStatus === 'idle' && currentUser ? (
+            <Switch>
+              <Route exact path="/">
+                <HomeFeed currentUser={currentUser} />
+              </Route>
+              <Route path="/tweet/:tweetId">
+                <TweetDetails />
+              </Route>
+              <Route exact path="/:handle">
+                <ProfileFeed />
+              </Route>
+            </Switch>
+          ) : authStatus === 'loading' ? (
+            <CenteredSpinner />
+          ) : (
+            <SadScreen />
+          )}
+        </Main>
+      </Wrapper>
+      <GlobalStyles />
+    </>
+  );
+};
+
+const WrappedApp = () => {
+  return (
     <ThemeProvider theme={THEME}>
-      <Router>
-        <>
-          <Wrapper>
-            <Sidebar />
-            <Main>
-              {status === 'idle' && data ? (
-                <Switch>
-                  <Route exact path="/">
-                    <HomeFeed currentUser={data.profile} />
-                  </Route>
-                  <Route path="/tweet/:tweetId">
-                    <TweetDetails />
-                  </Route>
-                  <Route exact path="/:handle">
-                    <ProfileFeed />
-                  </Route>
-                </Switch>
-              ) : status === 'loading' ? (
-                <CenteredSpinner />
-              ) : (
-                <SadScreen />
-              )}
-            </Main>
-          </Wrapper>
-          <GlobalStyles />
-        </>
-      </Router>
+      <CurrentUserProvider>
+        <TweetsProvider>
+          <Router>
+            <App />
+          </Router>
+        </TweetsProvider>
+      </CurrentUserProvider>
     </ThemeProvider>
   );
 };
@@ -61,4 +72,4 @@ const Main = styled.main`
   border-right: 1px solid ${p => p.theme.colors.gray[200]};
 `;
 
-export default App;
+export default WrappedApp;

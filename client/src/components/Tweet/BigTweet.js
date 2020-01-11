@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Avatar from '../Avatar';
+import TweetActions from './TweetActions';
+import TweetMedia from './TweetMedia';
 
-const Tweet = ({ data }) => {
-  console.log({ data });
+const BigTweet = ({ data }) => {
   return (
     <Wrapper role="article" tabIndex="0">
       <Header>
@@ -19,6 +20,8 @@ const Tweet = ({ data }) => {
         </UserDetails>
       </Header>
       <Body>{data.body}</Body>
+      <TweetMedia media={data.media} />
+      <Actions />
     </Wrapper>
   );
 };
@@ -59,9 +62,13 @@ const Handle = styled.span`
 `;
 const Body = styled.p`
   margin: 0;
-  margin-top: 8px;
+  margin-top: 12px;
+  margin-bottom: 12px;
   line-height: 1.3;
   font-size: 23px;
 `;
+const Actions = styled(TweetActions)`
+  justify-content: space-around;
+`;
 
-export default Tweet;
+export default BigTweet;

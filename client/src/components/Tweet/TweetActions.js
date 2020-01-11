@@ -17,6 +17,7 @@ const TweetActions = ({ numLikes, numRetweets, ...delegated }) => {
         color={COLORS.primary}
         onClick={ev => {
           ev.stopPropagation();
+          ev.preventDefault();
           console.log('click');
         }}
       />
@@ -25,15 +26,33 @@ const TweetActions = ({ numLikes, numRetweets, ...delegated }) => {
         color={COLORS.retweet}
         onClick={ev => {
           ev.stopPropagation();
+          ev.preventDefault();
           console.log('click');
         }}
       />
       <IconButton
         icon={likeIcon}
         color={COLORS.error}
-        onClick={ev => {
+        onClick={async ev => {
           ev.stopPropagation();
-          console.log('click');
+          ev.preventDefault();
+
+          const response = await fetch(
+            `/api/tweets/${'1212689921057665024'}/like`,
+            {
+              method: 'PUT',
+              body: JSON.stringify({
+                like: true,
+              }),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+
+          const json = await response.json();
+
+          console.log(json);
         }}
       />
       <IconButton
@@ -41,6 +60,7 @@ const TweetActions = ({ numLikes, numRetweets, ...delegated }) => {
         color={COLORS.primary}
         onClick={ev => {
           ev.stopPropagation();
+          ev.preventDefault();
           console.log('click');
         }}
       />
@@ -51,6 +71,7 @@ const TweetActions = ({ numLikes, numRetweets, ...delegated }) => {
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  color: ${p => p.theme.colors.gray[700]};
 `;
 
 export default TweetActions;

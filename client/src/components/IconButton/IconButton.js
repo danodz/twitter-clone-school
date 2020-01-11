@@ -6,16 +6,23 @@ import UnstyledButton from '../UnstyledButton';
 
 const IconButton = ({ icon, color, num, size = 16, onClick }) => {
   return (
-    <Wrapper
-      onClick={onClick}
-      style={{ '--color': color, '--button-size': size * 2 + 'px' }}
-    >
-      <IconElem icon={icon} size={size} />
-    </Wrapper>
+    <OuterWrapper>
+      <Wrapper
+        onClick={onClick}
+        style={{ '--color': color, '--button-size': size * 2 + 'px' }}
+      >
+        <IconElem icon={icon} size={size} />
+      </Wrapper>
+      {num > 0 && <Num>{num}</Num>}
+    </OuterWrapper>
   );
 };
 
-const Wrapper = styled(UnstyledButton)`
+const OuterWrapper = styled(UnstyledButton)`
+  position: relative;
+`;
+
+const Wrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -53,6 +60,15 @@ const IconElem = styled(Icon)`
   ${Wrapper}:hover & {
     color: var(--color);
   }
+`;
+
+const Num = styled.span`
+  position: absolute;
+  top: 0;
+  right: -8px;
+  bottom: 0;
+  margin: auto;
+  transform: translateY(100%);
 `;
 
 export default IconButton;

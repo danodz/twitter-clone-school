@@ -1,15 +1,15 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import Avatar from "../Avatar";
-import CharacterCounter from "../CharacterCounter";
-import Button from "../Button";
-import Spacer from "../Spacer";
+import Avatar from '../Avatar';
+import CharacterCounter from '../CharacterCounter';
+import Button from '../Button';
+import Spacer from '../Spacer';
 
 const LIMIT = 280;
 
 const ComposeTweet = ({ currentUser, handleSubmit }) => {
-  const [status, setStatus] = React.useState("");
+  const [status, setStatus] = React.useState('');
 
   return (
     <Wrapper>
@@ -55,7 +55,7 @@ const Textarea = styled.textarea`
   resize: none;
   padding: 12px;
   height: 100px;
-  color: #999;
+  color: ${p => p.theme.colors.gray[900]};
 
   &:focus {
     outline: none;

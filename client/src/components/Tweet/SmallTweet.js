@@ -1,57 +1,57 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Avatar from '../Avatar';
-import TweetActions from '../TweetActions';
+import TweetActions from './TweetActions';
+import TweetMedia from './TweetMedia';
 import { getHumanizedDate } from './Tweet.helpers';
 
 const SmallTweet = ({ data }) => {
-  let history = useHistory();
-
   return (
-    <Article
-      role="article"
-      onClick={ev => {
-        console.log('ev', ev.target);
-        history.push(`/tweet/${data.id}`);
-      }}
-      tabIndex={0}
-    >
-      <Avatar
-        handle={data.author.handle}
-        src={data.author.avatarSrc}
-        size={48}
-      />
-      <MainContent>
-        <TopRow>
-          <PrimaryIdentifier>{data.author.displayName}</PrimaryIdentifier>{' '}
-          <SecondaryIdentifiers>
-            @{data.author.handle} · {getHumanizedDate(data.timestamp)}
-          </SecondaryIdentifiers>
-        </TopRow>
-        <Body>{data.body}</Body>
-        <TweetActions />
-      </MainContent>
-    </Article>
+    <WrapperLink to={`/tweet/${data.id}`}>
+      <Article>
+        <Avatar
+          handle={data.author.handle}
+          src={data.author.avatarSrc}
+          size={48}
+        />
+        <MainContent>
+          <TopRow>
+            <PrimaryIdentifier>{data.author.displayName}</PrimaryIdentifier>{' '}
+            <SecondaryIdentifiers>
+              @{data.author.handle} · {getHumanizedDate(data.timestamp)}
+            </SecondaryIdentifiers>
+          </TopRow>
+          <Body>{data.body}</Body>
+          <TweetMedia media={data.media} />
+          <Actions />
+        </MainContent>
+      </Article>
+    </WrapperLink>
   );
 };
 
 const WrapperLink = styled(Link)`
+  display: block;
+  padding: 12px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid ${p => p.theme.colors.gray[200]};
   text-decoration: none;
+  color: ${p => p.theme.colors.gray[900]};
+
+  &:hover {
+    background-color: ${p => p.theme.colors.gray[100]};
+  }
 `;
 
 const Article = styled.article`
   display: flex;
-  padding: 12px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid ${p => p.theme.colors.gray[200]};
-  color: ${p => p.theme.colors.gray[900]};
-  cursor: pointer;
+`;
 
-  &:hover {
-    background: ${p => p.theme.colors.gray[100]};
-  }
+const Actions = styled(TweetActions)`
+  width: 80%;
+  margin-left: -8px;
 `;
 
 const MainContent = styled.div`

@@ -5,6 +5,8 @@ const PORT = 31415;
 
 var app = express();
 
+app.use(express.json());
+
 app.use(require('./routes'));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 

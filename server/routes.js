@@ -18,7 +18,7 @@ const simulateProblems = (res, data) => {
     const shouldError = Math.random() <= 0.05;
 
     if (shouldError) {
-      res.send(500);
+      res.sendStatus(500);
       return;
     }
 
@@ -51,6 +51,14 @@ const denormalizeTweet = tweet => {
   delete tweetCopy.authorHandle;
 
   tweetCopy.author = getUserProfile(tweet.authorHandle);
+
+  delete tweetCopy.likedBy;
+  delete tweetCopy.retweetedBy;
+
+  tweetCopy.isLiked = tweet.likedBy.includes(CURRENT_USER_HANDLE);
+  tweetCopy.isRetweeted = tweet.retweetedBy.includes(CURRENT_USER_HANDLE);
+  tweetCopy.numLikes = tweet.likedBy.length;
+  tweetCopy.numRetweets = tweet.retweetedBy.length;
 
   return tweetCopy;
 };
@@ -90,7 +98,7 @@ router.get('/api/:handle/profile', (req, res) => {
   });
 });
 
-router.get('/api/:handle/tweets', (req, res) => {
+router.get('/api/:handle/feed', (req, res) => {
   const tweets = getTweetsFromUser(req.params.handle);
 
   return res.json({
@@ -124,6 +132,42 @@ router.get('/api/tweet/:tweetId', (req, res) => {
   const tweet = data.tweets.find(t => t.id === req.params.tweetId);
   console.log(req.params, tweet);
   return res.json({ tweet: denormalizeTweet(tweet), replies: [] });
+});
+
+router.put('/api/tweets/:tweetId/like', (req, res) => {
+  const { like } = req.body;
+  const tweet = data.tweets.find(tweet => tweet.id === req.params.tweetId);
+
+  if (!tweet) {
+    res.sendStatus(404);
+    return;
+  }
+
+  if (typeof like !== 'boolean') {
+    res.status(400).json({
+      error: 'Please specify whether to "like" or "unlike" this tweet.',
+    });
+  }
+
+  // Disallow "repeat" requests (eg trying to like an already-liked tweet).
+  const currentlyLiked = tweet.likedBy.includes(CURRENT_USER_HANDLE);
+
+  if (like === currentlyLiked) {
+    res.status(409).json({
+      error:
+        'You are not allowed to like an already-liked tweet, or unlike an already-unliked tweet.',
+    });
+  }
+
+  if (like) {
+    tweet.likedBy.push(CURRENT_USER_HANDLE);
+  } else {
+    tweet.likedBy = tweet.likedBy.filter(
+      handle => handle !== CURRENT_USER_HANDLE
+    );
+  }
+
+  return res.json({ success: true });
 });
 
 module.exports = router;

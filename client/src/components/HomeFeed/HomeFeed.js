@@ -5,8 +5,11 @@ import Header from '../Header';
 import ComposeTweet from '../ComposeTweet';
 import Divider from '../Divider';
 import Feed from '../Feed';
+import CurrentUserContext from '../CurrentUserContext';
 
-const HomeFeed = ({ currentUser }) => {
+const HomeFeed = () => {
+  const [currentUser] = React.useContext(CurrentUserContext);
+
   return (
     <Wrapper>
       <Header>Home</Header>
