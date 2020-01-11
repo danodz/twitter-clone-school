@@ -1,7 +1,7 @@
 export const COLORS = {
   primary: 'hsl(258deg, 100%, 50%)',
   gray: {
-    '100': 'hsl(225deg, 25%, 96%)',
+    '100': 'hsl(225deg, 25%, 98%)',
     '200': 'hsl(225deg, 20%, 92%)',
     '300': 'hsl(225deg, 12%, 85%)',
     '400': 'hsl(225deg, 10%, 78%)',
@@ -13,7 +13,7 @@ export const COLORS = {
   },
   warning: 'hsl(45deg, 100%, 50%)',
   error: 'hsl(350deg, 100%, 45%)',
-  success: 'hsl(170deg, 100%, 50%)',
+  retweet: 'hsl(175deg, 90%, 27%)',
 };
 
 export const UNIT = 8;

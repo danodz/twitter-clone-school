@@ -9,20 +9,48 @@ import { COLORS } from '../../constants';
 
 import IconButton from '../IconButton';
 
-const TweetActions = ({ numLikes, numRetweets }) => {
+const TweetActions = ({ numLikes, numRetweets, ...delegated }) => {
   return (
-    <Wrapper>
-      <IconButton icon={replyIcon} color={COLORS.primary} />
-      <IconButton icon={retweetIcon} color={COLORS.success} />
-      <IconButton icon={likeIcon} color={COLORS.error} />
-      <IconButton icon={shareIcon} color={COLORS.primary} />
+    <Wrapper {...delegated}>
+      <IconButton
+        icon={replyIcon}
+        color={COLORS.primary}
+        onClick={ev => {
+          ev.stopPropagation();
+          console.log('click');
+        }}
+      />
+      <IconButton
+        icon={retweetIcon}
+        color={COLORS.retweet}
+        onClick={ev => {
+          ev.stopPropagation();
+          console.log('click');
+        }}
+      />
+      <IconButton
+        icon={likeIcon}
+        color={COLORS.error}
+        onClick={ev => {
+          ev.stopPropagation();
+          console.log('click');
+        }}
+      />
+      <IconButton
+        icon={shareIcon}
+        color={COLORS.primary}
+        onClick={ev => {
+          ev.stopPropagation();
+          console.log('click');
+        }}
+      />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 export default TweetActions;

@@ -1,45 +1,57 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import Avatar from '../Avatar';
 import TweetActions from '../TweetActions';
 import { getHumanizedDate } from './Tweet.helpers';
 
 const SmallTweet = ({ data }) => {
+  let history = useHistory();
+
   return (
-    <WrapperLink to={`/tweet/${data.id}`}>
-      <Article>
-        <Avatar
-          handle={data.author.handle}
-          src={data.author.avatarSrc}
-          size={48}
-        />
-        <MainContent>
-          <TopRow>
-            <PrimaryIdentifier>{data.author.displayName}</PrimaryIdentifier>{' '}
-            <SecondaryIdentifiers>
-              @{data.author.handle} · {getHumanizedDate(data.timestamp)}
-            </SecondaryIdentifiers>
-          </TopRow>
-          <Body>{data.body}</Body>
-          <TweetActions />
-        </MainContent>
-      </Article>
-    </WrapperLink>
+    <Article
+      role="article"
+      onClick={ev => {
+        console.log('ev', ev.target);
+        history.push(`/tweet/${data.id}`);
+      }}
+      tabIndex={0}
+    >
+      <Avatar
+        handle={data.author.handle}
+        src={data.author.avatarSrc}
+        size={48}
+      />
+      <MainContent>
+        <TopRow>
+          <PrimaryIdentifier>{data.author.displayName}</PrimaryIdentifier>{' '}
+          <SecondaryIdentifiers>
+            @{data.author.handle} · {getHumanizedDate(data.timestamp)}
+          </SecondaryIdentifiers>
+        </TopRow>
+        <Body>{data.body}</Body>
+        <TweetActions />
+      </MainContent>
+    </Article>
   );
 };
 
 const WrapperLink = styled(Link)`
-  display: block;
-  padding: 12px;
-  border-bottom: 1px solid ${p => p.theme.colors.gray[200]};
   text-decoration: none;
-  color: ${p => p.theme.colors.gray[900]};
 `;
 
 const Article = styled.article`
   display: flex;
+  padding: 12px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid ${p => p.theme.colors.gray[200]};
+  color: ${p => p.theme.colors.gray[900]};
+  cursor: pointer;
+
+  &:hover {
+    background: ${p => p.theme.colors.gray[100]};
+  }
 `;
 
 const MainContent = styled.div`
@@ -64,6 +76,7 @@ const SecondaryIdentifiers = styled.span`
 const Body = styled.p`
   margin: 0;
   margin-top: 8px;
+  margin-bottom: 8px;
   line-height: 1.3;
 `;
 
