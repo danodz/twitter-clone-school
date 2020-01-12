@@ -26,6 +26,7 @@ const IconButton = ({ icon, color, num, status, size = 16, onClick }) => {
 const OuterWrapper = styled(UnstyledButton)`
   position: relative;
   color: var(--base-color);
+  outline: none;
 
   &:hover {
     color: var(--highlight-color);
@@ -55,6 +56,12 @@ const Wrapper = styled.div`
 
   &:hover:after {
     opacity: 0.1;
+  }
+  ${OuterWrapper}:focus &:after {
+    opacity: 0.1;
+  }
+  ${OuterWrapper}:focus &:hover:after {
+    opacity: 0.2;
   }
 `;
 
