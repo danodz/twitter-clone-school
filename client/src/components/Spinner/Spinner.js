@@ -18,8 +18,8 @@ const SpinningIcon = styled(Icon)`
   color: ${p => p.theme.colors.gray[500]};
 `;
 
-const Spinner = ({ size = 32 }) => {
-  return <SpinningIcon size={size} icon={loader} />;
+const Spinner = ({ size = 32, ...delegated }) => {
+  return <SpinningIcon size={size} icon={loader} {...delegated} />;
 };
 
 export default Spinner;

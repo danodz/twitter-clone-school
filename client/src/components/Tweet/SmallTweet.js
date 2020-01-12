@@ -23,9 +23,9 @@ const SmallTweet = ({ tweet }) => {
               @{tweet.author.handle} · {getHumanizedDate(tweet.timestamp)}
             </SecondaryIdentifiers>
           </TopRow>
-          <Body>{tweet.body}</Body>
+          <Body>{tweet.status}</Body>
           <TweetMedia media={tweet.media} />
-          <Actions tweet={tweet} />
+          <Actions tweet={tweet} showCounts={true} />
         </MainContent>
       </Article>
     </WrapperLink>

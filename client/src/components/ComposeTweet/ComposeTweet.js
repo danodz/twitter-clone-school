@@ -5,34 +5,63 @@ import Avatar from '../Avatar';
 import CharacterCounter from '../CharacterCounter';
 import Button from '../Button';
 import Spacer from '../Spacer';
+import Spinner from '../Spinner';
 
 const LIMIT = 280;
 
 const ComposeTweet = ({ currentUser, handleSubmit }) => {
   const [status, setStatus] = React.useState('');
+  const [sending, setSending] = React.useState(false);
 
   return (
-    <Wrapper>
-      <Avatar
-        handle={currentUser.handle}
-        src={currentUser.avatarSrc}
-        size={48}
-      />
-      <MainContent>
-        <Textarea
-          placeholder="What's happening?"
-          value={status}
-          onChange={ev => setStatus(ev.target.value)}
+    <form
+      onSubmit={ev => {
+        ev.preventDefault();
+
+        setSending(true);
+
+        // redundant guard
+        if (status.length > LIMIT) {
+          return;
+        }
+
+        handleSubmit(status).then(() => {
+          setStatus('');
+          setSending(false);
+        });
+      }}
+    >
+      <Wrapper>
+        <Avatar
+          handle={currentUser.handle}
+          src={currentUser.avatarSrc}
+          size={48}
         />
-        <Actions>
-          <CharacterCounter count={status.length} limit={LIMIT} />
-          <Spacer size={16} />
-          <Button disabled={status.length === 0 || status.length > LIMIT}>
-            Tweet
-          </Button>
-        </Actions>
-      </MainContent>
-    </Wrapper>
+        <MainContent>
+          <Textarea
+            placeholder="What's happening?"
+            value={status}
+            onChange={ev => setStatus(ev.target.value)}
+          />
+          <Actions>
+            <CharacterCounter count={status.length} limit={LIMIT} />
+            <Spacer size={16} />
+            <Button
+              style={{ width: 80 }}
+              disabled={
+                status.length === 0 || status.length > LIMIT || sending === true
+              }
+            >
+              {sending ? (
+                <Spinner size={16} style={{ color: '#FFF' }} />
+              ) : (
+                'Meow'
+              )}
+            </Button>
+          </Actions>
+        </MainContent>
+      </Wrapper>
+    </form>
   );
 };
 

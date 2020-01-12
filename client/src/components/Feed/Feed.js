@@ -5,12 +5,14 @@ import Tweet from '../Tweet';
 import TweetsContext from '../TweetsContext';
 
 const Feed = ({ handle, mode }) => {
-  const [tweets, dispatch] = React.useContext(TweetsContext);
+  const [state] = React.useContext(TweetsContext);
+
+  console.log(state);
 
   return (
     <Wrapper>
-      {tweets.map(tweet => {
-        return <Tweet key={tweet.id} tweet={tweet} />;
+      {state.tweetIds.map(tweetId => {
+        return <Tweet key={tweetId} tweet={state.tweetsById[tweetId]} />;
       })}
     </Wrapper>
   );

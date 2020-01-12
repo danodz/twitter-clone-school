@@ -49,10 +49,10 @@ const tweets = {
   '1212689921057665024': {
     id: '1212689921057665024',
     authorHandle: 'treasurymog',
-    timestamp: '2020-01-04T09:14:00+00:00',
+    timestamp: '2020-01-12T09:14:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body:
+    status:
       'Ok people #backtowork you go. Cats...just carry on lounging around as usual.',
     media: [
       {
@@ -69,9 +69,25 @@ const tweets = {
     timestamp: '2019-12-26T14:38:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body:
+    status:
       "If you're a 🇬🇧 diplomat abroad today, let me know where you are and what you're up to!",
     media: [],
+  },
+  '1214624813723136002': {
+    id: '1214624813723136002',
+    authorHandle: 'diplomog',
+    timestamp: '2020-01-12T04:31:00+00:00',
+    likedBy: [],
+    retweetedBy: [],
+    status: `Sometimes I wonder... am I playing with the ribbon or is the ribbon playing with me? 
+
+Maybe a more diplomatic approach will work 🤔`,
+    media: [
+      {
+        type: 'img',
+        url: '/assets/diplomog-yarn.png',
+      },
+    ],
   },
   '1209788222324256768': {
     id: '1209788222324256768',
@@ -79,7 +95,7 @@ const tweets = {
     timestamp: '2019-12-25T21:53:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body: `Moggy Christmas to all!
+    status: `Moggy Christmas to all!
 
 Special wishes to all my diplomats, far from home at this time of year, serving 🇬🇧 all over the 🌍.`,
     media: [
@@ -95,7 +111,7 @@ Special wishes to all my diplomats, far from home at this time of year, serving 
     timestamp: '2019-12-30T19:23:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body: `2019 has a been a wonderful year, but I definitely deserve some rest!
+    status: `2019 has a been a wonderful year, but I definitely deserve some rest!
 
 I would love to know what my 🇬🇧diplomats have been getting up to! What’s been your highlight or biggest achievement of the year?
 
@@ -122,7 +138,7 @@ My highlight has been coming back to work with my very own Palmy HQ 🤩`,
     timestamp: '2020-01-09T13:20:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body: `Olifant / Rooikat`,
+    status: `Olifant / Rooikat`,
     media: [
       {
         type: 'img',
@@ -137,7 +153,7 @@ My highlight has been coming back to work with my very own Palmy HQ 🤩`,
     timestamp: '2020-01-06T09:20:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body: `JAS 39 Gripen`,
+    status: `JAS 39 Gripen`,
     media: [
       {
         type: 'img',
@@ -152,7 +168,7 @@ My highlight has been coming back to work with my very own Palmy HQ 🤩`,
     timestamp: '2019-12-24T14:02:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body: `FGS Frankfurt Am Main (A 1412)`,
+    status: `FGS Frankfurt Am Main (A 1412)`,
     media: [
       {
         type: 'img',
@@ -167,7 +183,7 @@ My highlight has been coming back to work with my very own Palmy HQ 🤩`,
     timestamp: '2019-12-29T22:19:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body: `"The principle of giant military cats deterrence states that a country’s possession of giant military cats discourages other countries from using giant military cats".`,
+    status: `"The principle of giant military cats deterrence states that a country’s possession of giant military cats discourages other countries from using giant military cats".`,
     media: [],
   },
   '1215277385404309504': {
@@ -176,7 +192,7 @@ My highlight has been coming back to work with my very own Palmy HQ 🤩`,
     timestamp: '2020-01-01T11:53:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body: `Come adopt Storm #Philadelphia
+    status: `Come adopt Storm #Philadelphia
 He needs you to storm the enemy lines and find his new #ForeverHome
 #AdoptDontShop
 https://morrisanimalrefuge.org/adopt/storm `,
@@ -194,7 +210,7 @@ https://morrisanimalrefuge.org/adopt/storm `,
     timestamp: '2020-01-11T12:08:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body: `USNS Comfort (T-AH-20)`,
+    status: `USNS Comfort (T-AH-20)`,
     media: [
       {
         type: 'img',
@@ -209,7 +225,7 @@ https://morrisanimalrefuge.org/adopt/storm `,
     timestamp: '2020-01-11T08:59:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body: `"Scotland Forever!"
+    status: `"Scotland Forever!"
 by Lady Butler / 1881`,
     media: [
       {
@@ -225,7 +241,7 @@ by Lady Butler / 1881`,
     timestamp: '2020-01-11T08:37:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body: `M1128 Stryker MGS`,
+    status: `M1128 Stryker MGS`,
     media: [
       {
         type: 'img',
@@ -240,7 +256,7 @@ by Lady Butler / 1881`,
     timestamp: '2020-01-12T17:27:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    body: `Stridsbåt 90H (CB90)`,
+    status: `Stridsbåt 90H (CB90)`,
     media: [
       {
         type: 'img',

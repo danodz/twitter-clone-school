@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Button = styled.button`
   height: 40px;
@@ -18,7 +18,8 @@ const Button = styled.button`
   }
 
   &:disabled {
-    opacity: 0.4;
+    opacity: 0.9;
+    background: ${p => p.theme.colors.primaryAlpha};
     pointer-events: none;
   }
 `;

@@ -15,7 +15,7 @@ import { TweetsProvider } from '../TweetsContext';
 const HomeFeed = () => {
   const [currentUser] = React.useContext(CurrentUserContext);
 
-  const [data, status] = useApiEndpoint('/me/feed');
+  const [data, status, retrigger] = useApiEndpoint('/me/home-feed');
 
   let mainContent;
   if (status === 'loading') {
@@ -29,9 +29,25 @@ const HomeFeed = () => {
   return (
     <Wrapper>
       <Header>Home</Header>
-      <ComposeTweet currentUser={currentUser} />
+      <ComposeTweet
+        currentUser={currentUser}
+        handleSubmit={status => {
+          return fetch('/api/tweet', {
+            method: 'POST',
+            body: JSON.stringify({
+              status,
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).then(retrigger);
+        }}
+      />
       <Divider size={10} />
-      <TweetsProvider tweets={data ? data.tweets : undefined}>
+      <TweetsProvider
+        tweetsById={data ? data.tweetsById : undefined}
+        tweetIds={data ? data.tweetIds : undefined}
+      >
         {mainContent}
       </TweetsProvider>
     </Wrapper>

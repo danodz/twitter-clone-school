@@ -11,8 +11,8 @@ import { COLORS } from '../../constants';
 import IconButton from '../IconButton';
 import TweetsContext from '../TweetsContext';
 
-const TweetActions = ({ tweet, ...delegated }) => {
-  const [, dispatch] = React.useContext(TweetsContext);
+const TweetActions = ({ tweet, showCounts, ...delegated }) => {
+  const [, actions] = React.useContext(TweetsContext);
 
   return (
     <Wrapper {...delegated}>
@@ -27,13 +27,15 @@ const TweetActions = ({ tweet, ...delegated }) => {
       <IconButton
         icon={retweetIcon}
         color={COLORS.retweet}
+        status={tweet.isRetweeted ? 'on' : 'off'}
+        num={showCounts && tweet.numRetweets}
         onClick={ev => {
           ev.stopPropagation();
           ev.preventDefault();
 
-          dispatch({ type: 'TOGGLE_LIKE', id: tweet.id });
+          actions.toggleTweetRetweet(tweet.id);
 
-          fetch(`/api/tweets/${tweet.id}/retweet`, {
+          fetch(`/api/tweet/${tweet.id}/retweet`, {
             method: 'PUT',
             body: JSON.stringify({
               retweet: !tweet.isRetweeted,
@@ -49,14 +51,14 @@ const TweetActions = ({ tweet, ...delegated }) => {
         color={COLORS.error}
         size={18}
         status={tweet.isLiked ? 'on' : 'off'}
-        num={tweet.numLikes}
+        num={showCounts && tweet.numLikes}
         onClick={ev => {
           ev.stopPropagation();
           ev.preventDefault();
 
-          dispatch({ type: 'TOGGLE_LIKE', id: tweet.id });
+          actions.toggleTweetLike(tweet.id);
 
-          fetch(`/api/tweets/${tweet.id}/like`, {
+          fetch(`/api/tweet/${tweet.id}/like`, {
             method: 'PUT',
             body: JSON.stringify({
               like: !tweet.isLiked,

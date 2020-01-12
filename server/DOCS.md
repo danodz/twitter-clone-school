@@ -30,7 +30,7 @@ Example:
     "numRetweets": 250,
     "isLiked": true,
     "isRetweeted": false,
-    "body": "Had salad for lunch today, so tasty!!1",
+    "status": "Had salad for lunch today, so tasty!!1",
     "media": [
       {
         "type": "img",

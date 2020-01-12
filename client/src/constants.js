@@ -1,11 +1,13 @@
 export const COLORS = {
   primary: 'hsl(258deg, 100%, 50%)',
+  primaryAlpha: 'hsla(258deg, 100%, 50%, 0.5)',
   gray: {
     '100': 'hsl(225deg, 25%, 98%)',
     '200': 'hsl(225deg, 20%, 92%)',
     '300': 'hsl(225deg, 12%, 85%)',
     '400': 'hsl(225deg, 10%, 78%)',
     '500': 'hsl(225deg, 8%, 50%)',
+    // 600 and below are accessible on a white background
     '600': 'hsl(225deg, 7%, 33%)',
     '700': 'hsl(225deg, 10%, 18%)',
     '800': 'hsl(225deg, 13%, 10%)',

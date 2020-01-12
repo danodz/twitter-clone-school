@@ -2,26 +2,54 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Avatar from '../Avatar';
+import TweetsContext from '../TweetsContext';
 import TweetActions from './TweetActions';
 import TweetMedia from './TweetMedia';
+import { getDetailedDate } from './Tweet.helpers';
 
-const BigTweet = ({ data }) => {
+const pluralizeLike = num => (num === 1 ? 'Like' : 'Likes');
+const pluralizeRetweet = num => (num === 1 ? 'Retweet' : 'Retweets');
+
+const BigTweet = ({ tweetId }) => {
+  const [state] = React.useContext(TweetsContext);
+  const tweet = state.tweetsById[tweetId];
+
+  console.log(state);
+
   return (
     <Wrapper role="article" tabIndex="0">
       <Header>
         <Avatar
-          handle={data.author.handle}
-          src={data.author.avatarSrc}
+          handle={tweet.author.handle}
+          src={tweet.author.avatarSrc}
           size={48}
         />
         <UserDetails>
-          <Name>{data.author.displayName}</Name>{' '}
-          <Handle>@{data.author.handle}</Handle>
+          <Name>{tweet.author.displayName}</Name>{' '}
+          <Handle>@{tweet.author.handle}</Handle>
         </UserDetails>
       </Header>
-      <Body>{data.body}</Body>
-      <TweetMedia media={data.media} />
-      <Actions />
+      <Body>{tweet.status}</Body>
+      <TweetMedia media={tweet.media} />
+      <TweetDeets>
+        {getDetailedDate(tweet.timestamp)} · Critter web app
+      </TweetDeets>
+      {(tweet.numLikes > 0 || tweet.numRetweets > 0) && (
+        <TweetDeets>
+          {tweet.numLikes > 0 && (
+            <Stat>
+              <strong>{tweet.numLikes}</strong> {pluralizeLike(tweet.numLikes)}
+            </Stat>
+          )}
+          {tweet.numRetweets > 0 && (
+            <Stat>
+              <strong>{tweet.numRetweets}</strong>{' '}
+              {pluralizeRetweet(tweet.numRetweets)}
+            </Stat>
+          )}
+        </TweetDeets>
+      )}
+      <Actions tweet={tweet} />
     </Wrapper>
   );
 };
@@ -58,7 +86,7 @@ const Name = styled.span`
 `;
 const Handle = styled.span`
   font-size: 14px;
-  color: ${p => p.theme.colors.gray[500]};
+  color: ${p => p.theme.colors.gray[600]};
 `;
 const Body = styled.p`
   margin: 0;
@@ -69,6 +97,25 @@ const Body = styled.p`
 `;
 const Actions = styled(TweetActions)`
   justify-content: space-around;
+  margin-top: 12px;
+`;
+
+const TweetDeets = styled.div`
+  color: ${p => p.theme.colors.gray[600]};
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid ${p => p.theme.colors.gray[200]};
+`;
+
+const Stat = styled.span`
+  display: inline-block;
+  margin-right: 16px;
+  color: ${p => p.theme.colors.gray[600]};
+
+  strong {
+    font-weight: bold;
+    color: ${p => p.theme.colors.gray[800]};
+  }
 `;
 
 export default BigTweet;

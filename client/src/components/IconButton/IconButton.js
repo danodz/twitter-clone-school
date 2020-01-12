@@ -14,6 +14,7 @@ const IconButton = ({ icon, color, num, status, size = 16, onClick }) => {
         '--highlight-color': color,
         '--button-size': size * 2 + 'px',
       }}
+      onMouseUp={ev => ev.currentTarget.blur()}
     >
       <Wrapper onClick={onClick}>
         <IconElem icon={icon} size={size} />
@@ -58,10 +59,10 @@ const Wrapper = styled.div`
     opacity: 0.1;
   }
   ${OuterWrapper}:focus &:after {
-    opacity: 0.1;
+    opacity: 0.2;
   }
   ${OuterWrapper}:focus &:hover:after {
-    opacity: 0.2;
+    opacity: 0.4;
   }
 `;
 

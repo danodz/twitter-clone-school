@@ -15,7 +15,7 @@ const Image = styled.img`
   display: block;
   width: 100%;
   border-radius: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 `;
 
 export default TweetMedia;

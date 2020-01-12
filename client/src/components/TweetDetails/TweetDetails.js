@@ -7,6 +7,7 @@ import useApiEndpoint from '../../hooks/use-api-endpoint.hook';
 import CenteredSpinner from '../CenteredSpinner';
 import SadScreen from '../SadScreen';
 import Tweet from '../Tweet';
+import { TweetsProvider } from '../TweetsContext';
 
 const TweetDetails = () => {
   const { tweetId } = useParams();
@@ -18,7 +19,11 @@ const TweetDetails = () => {
     return <SadScreen />;
   }
 
-  return <Tweet size="big" data={data.tweet} />;
+  return (
+    <TweetsProvider tweetsById={{ [data.tweet.id]: data.tweet }}>
+      <Tweet size="big" tweetId={data.tweet.id} />
+    </TweetsProvider>
+  );
 };
 
 export default TweetDetails;
