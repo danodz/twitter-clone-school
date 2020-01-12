@@ -1,1 +1,1 @@
-export { default } from './TweetsContext';
+export { default, TweetsProvider } from './TweetsContext';

@@ -2,14 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { messageCircle as replyIcon } from 'react-icons-kit/feather/messageCircle';
 import { repeat as retweetIcon } from 'react-icons-kit/feather/repeat';
-import { heart as likeIcon } from 'react-icons-kit/feather/heart';
+import { heartOutline as likeOutlineIcon } from 'react-icons-kit/typicons/heartOutline';
+import { heart as likeFilledIcon } from 'react-icons-kit/typicons/heart';
 import { share as shareIcon } from 'react-icons-kit/feather/share';
 
 import { COLORS } from '../../constants';
 
 import IconButton from '../IconButton';
+import TweetsContext from '../TweetsContext';
 
-const TweetActions = ({ numLikes, numRetweets, ...delegated }) => {
+const TweetActions = ({ tweet, ...delegated }) => {
+  const [, dispatch] = React.useContext(TweetsContext);
+
   return (
     <Wrapper {...delegated}>
       <IconButton
@@ -18,7 +22,6 @@ const TweetActions = ({ numLikes, numRetweets, ...delegated }) => {
         onClick={ev => {
           ev.stopPropagation();
           ev.preventDefault();
-          console.log('click');
         }}
       />
       <IconButton
@@ -27,32 +30,44 @@ const TweetActions = ({ numLikes, numRetweets, ...delegated }) => {
         onClick={ev => {
           ev.stopPropagation();
           ev.preventDefault();
-          console.log('click');
+
+          dispatch({ type: 'TOGGLE_LIKE', id: tweet.id });
+
+          fetch(`/api/tweets/${tweet.id}/retweet`, {
+            method: 'PUT',
+            body: JSON.stringify({
+              retweet: !tweet.isRetweeted,
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
         }}
       />
       <IconButton
-        icon={likeIcon}
+        icon={tweet.isLiked ? likeFilledIcon : likeOutlineIcon}
         color={COLORS.error}
-        onClick={async ev => {
+        size={18}
+        status={tweet.isLiked ? 'on' : 'off'}
+        num={tweet.numLikes}
+        onClick={ev => {
           ev.stopPropagation();
           ev.preventDefault();
 
-          const response = await fetch(
-            `/api/tweets/${'1212689921057665024'}/like`,
-            {
-              method: 'PUT',
-              body: JSON.stringify({
-                like: true,
-              }),
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          );
+          dispatch({ type: 'TOGGLE_LIKE', id: tweet.id });
 
-          const json = await response.json();
+          fetch(`/api/tweets/${tweet.id}/like`, {
+            method: 'PUT',
+            body: JSON.stringify({
+              like: !tweet.isLiked,
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
 
-          console.log(json);
+          // TODO: Should .catch the promise and undo the action, if it
+          // wasn't registered on the server
         }}
       />
       <IconButton

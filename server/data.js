@@ -44,9 +44,9 @@ const users = {
   },
 };
 
-const tweets = [
+const tweets = {
   // TreasuryMog
-  {
+  '1212689921057665024': {
     id: '1212689921057665024',
     authorHandle: 'treasurymog',
     timestamp: '2020-01-04T09:14:00+00:00',
@@ -63,7 +63,7 @@ const tweets = [
   },
 
   // Diplomog
-  {
+  '1209791721099411456': {
     id: '1209791721099411456',
     authorHandle: 'diplomog',
     timestamp: '2019-12-26T14:38:00+00:00',
@@ -73,7 +73,7 @@ const tweets = [
       "If you're a 🇬🇧 diplomat abroad today, let me know where you are and what you're up to!",
     media: [],
   },
-  {
+  '1209788222324256768': {
     id: '1209788222324256768',
     authorHandle: 'diplomog',
     timestamp: '2019-12-25T21:53:00+00:00',
@@ -89,7 +89,7 @@ Special wishes to all my diplomats, far from home at this time of year, serving 
       },
     ],
   },
-  {
+  '1212021009320161280': {
     id: '1212021009320161280',
     authorHandle: 'diplomog',
     timestamp: '2019-12-30T19:23:00+00:00',
@@ -116,7 +116,7 @@ My highlight has been coming back to work with my very own Palmy HQ 🤩`,
     ],
   },
   // Giant Military Cats
-  {
+  '1215337574526525440': {
     id: '1215337574526525440',
     authorHandle: 'giantcat9',
     timestamp: '2020-01-09T13:20:00+00:00',
@@ -131,7 +131,7 @@ My highlight has been coming back to work with my very own Palmy HQ 🤩`,
       },
     ],
   },
-  {
+  '1215324598067245056': {
     id: '1215324598067245056',
     authorHandle: 'giantcat9',
     timestamp: '2020-01-06T09:20:00+00:00',
@@ -146,7 +146,7 @@ My highlight has been coming back to work with my very own Palmy HQ 🤩`,
       },
     ],
   },
-  {
+  '1215288136026284032': {
     id: '1215288136026284032',
     authorHandle: 'giantcat9',
     timestamp: '2019-12-24T14:02:00+00:00',
@@ -161,7 +161,7 @@ My highlight has been coming back to work with my very own Palmy HQ 🤩`,
       },
     ],
   },
-  {
+  '1215286068716736512': {
     id: '1215286068716736512',
     authorHandle: 'giantcat9',
     timestamp: '2019-12-29T22:19:00+00:00',
@@ -170,7 +170,7 @@ My highlight has been coming back to work with my very own Palmy HQ 🤩`,
     body: `"The principle of giant military cats deterrence states that a country’s possession of giant military cats discourages other countries from using giant military cats".`,
     media: [],
   },
-  {
+  '1215277385404309504': {
     id: '1215277385404309504',
     authorHandle: 'giantcat9',
     timestamp: '2020-01-01T11:53:00+00:00',
@@ -188,7 +188,7 @@ https://morrisanimalrefuge.org/adopt/storm `,
       },
     ],
   },
-  {
+  '1216044243980095488': {
     id: '1216044243980095488',
     authorHandle: 'giantcat9',
     timestamp: '2020-01-11T12:08:00+00:00',
@@ -203,7 +203,7 @@ https://morrisanimalrefuge.org/adopt/storm `,
       },
     ],
   },
-  {
+  '1215996774806106114': {
     id: '1215996774806106114',
     authorHandle: 'giantcat9',
     timestamp: '2020-01-11T08:59:00+00:00',
@@ -219,7 +219,7 @@ by Lady Butler / 1881`,
       },
     ],
   },
-  {
+  '1215991148579315713': {
     id: '1215991148579315713',
     authorHandle: 'giantcat9',
     timestamp: '2020-01-11T08:37:00+00:00',
@@ -234,7 +234,7 @@ by Lady Butler / 1881`,
       },
     ],
   },
-  {
+  '1215953505451638784': {
     id: '1215953505451638784',
     authorHandle: 'giantcat9',
     timestamp: '2020-01-12T17:27:00+00:00',
@@ -249,7 +249,7 @@ by Lady Butler / 1881`,
       },
     ],
   },
-];
+};
 
 module.exports = {
   users,

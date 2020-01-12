@@ -1,25 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import useApiEndpoint from '../../hooks/use-api-endpoint.hook';
-
-import CenteredSpinner from '../CenteredSpinner';
-import SadScreen from '../SadScreen';
 import Tweet from '../Tweet';
+import TweetsContext from '../TweetsContext';
 
 const Feed = ({ handle, mode }) => {
-  const [data, status] = useApiEndpoint('/me/feed');
-
-  if (status === 'loading') {
-    return <CenteredSpinner />;
-  } else if (status === 'error' || !data) {
-    return <SadScreen />;
-  }
+  const [tweets, dispatch] = React.useContext(TweetsContext);
 
   return (
     <Wrapper>
-      {data.tweets.map(tweet => {
-        return <Tweet key={tweet.id} data={tweet} />;
+      {tweets.map(tweet => {
+        return <Tweet key={tweet.id} tweet={tweet} />;
       })}
     </Wrapper>
   );

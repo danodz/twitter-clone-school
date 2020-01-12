@@ -2,15 +2,20 @@ import React from 'react';
 import { Icon } from 'react-icons-kit';
 import styled from 'styled-components';
 
+import { COLORS } from '../../constants';
+
 import UnstyledButton from '../UnstyledButton';
 
-const IconButton = ({ icon, color, num, size = 16, onClick }) => {
+const IconButton = ({ icon, color, num, status, size = 16, onClick }) => {
   return (
-    <OuterWrapper>
-      <Wrapper
-        onClick={onClick}
-        style={{ '--color': color, '--button-size': size * 2 + 'px' }}
-      >
+    <OuterWrapper
+      style={{
+        '--base-color': status === 'on' ? color : COLORS.gray[700],
+        '--highlight-color': color,
+        '--button-size': size * 2 + 'px',
+      }}
+    >
+      <Wrapper onClick={onClick}>
         <IconElem icon={icon} size={size} />
       </Wrapper>
       {num > 0 && <Num>{num}</Num>}
@@ -20,6 +25,11 @@ const IconButton = ({ icon, color, num, size = 16, onClick }) => {
 
 const OuterWrapper = styled(UnstyledButton)`
   position: relative;
+  color: var(--base-color);
+
+  &:hover {
+    color: var(--highlight-color);
+  }
 `;
 
 const Wrapper = styled.div`
@@ -39,7 +49,7 @@ const Wrapper = styled.div`
     right: 0;
     bottom: 0;
     border-radius: 1000px;
-    background-color: var(--color);
+    background-color: var(--highlight-color);
     opacity: 0;
   }
 
@@ -49,26 +59,24 @@ const Wrapper = styled.div`
 `;
 
 const IconElem = styled(Icon)`
-  color: ${p => p.theme.colors.gray[900]};
   display: block;
 
   i,
   svg {
     display: block !important;
   }
-
-  ${Wrapper}:hover & {
-    color: var(--color);
-  }
 `;
 
 const Num = styled.span`
   position: absolute;
+  display: grid;
+  place-content: center;
   top: 0;
   right: -8px;
   bottom: 0;
   margin: auto;
-  transform: translateY(100%);
+  transform: translateX(100%);
+  outline: none;
 `;
 
 export default IconButton;

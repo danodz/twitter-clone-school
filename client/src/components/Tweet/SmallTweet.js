@@ -7,25 +7,25 @@ import TweetActions from './TweetActions';
 import TweetMedia from './TweetMedia';
 import { getHumanizedDate } from './Tweet.helpers';
 
-const SmallTweet = ({ data }) => {
+const SmallTweet = ({ tweet }) => {
   return (
-    <WrapperLink to={`/tweet/${data.id}`}>
+    <WrapperLink to={`/tweet/${tweet.id}`}>
       <Article>
         <Avatar
-          handle={data.author.handle}
-          src={data.author.avatarSrc}
+          handle={tweet.author.handle}
+          src={tweet.author.avatarSrc}
           size={48}
         />
         <MainContent>
           <TopRow>
-            <PrimaryIdentifier>{data.author.displayName}</PrimaryIdentifier>{' '}
+            <PrimaryIdentifier>{tweet.author.displayName}</PrimaryIdentifier>{' '}
             <SecondaryIdentifiers>
-              @{data.author.handle} · {getHumanizedDate(data.timestamp)}
+              @{tweet.author.handle} · {getHumanizedDate(tweet.timestamp)}
             </SecondaryIdentifiers>
           </TopRow>
-          <Body>{data.body}</Body>
-          <TweetMedia media={data.media} />
-          <Actions />
+          <Body>{tweet.body}</Body>
+          <TweetMedia media={tweet.media} />
+          <Actions tweet={tweet} />
         </MainContent>
       </Article>
     </WrapperLink>
