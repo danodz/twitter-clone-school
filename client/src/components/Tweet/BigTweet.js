@@ -14,8 +14,6 @@ const BigTweet = ({ tweetId }) => {
   const [state] = React.useContext(TweetsContext);
   const tweet = state.tweetsById[tweetId];
 
-  console.log(state);
-
   return (
     <Wrapper role="article" tabIndex="0">
       <Header>

@@ -45,11 +45,6 @@ const TweetActions = ({ tweet, showCounts, ...delegated }) => {
             },
           });
         }}
-        onKeyPress={ev => {
-          if (ev.key === 'Enter') {
-            ev.click();
-          }
-        }}
       />
       <IconButton
         icon={tweet.isLiked ? likeFilledIcon : likeOutlineIcon}
