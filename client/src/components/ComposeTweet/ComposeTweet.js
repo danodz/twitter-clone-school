@@ -6,10 +6,13 @@ import CharacterCounter from '../CharacterCounter';
 import Button from '../Button';
 import Spacer from '../Spacer';
 import Spinner from '../Spinner';
+import CurrentUserContext from '../CurrentUserContext';
 
 const LIMIT = 280;
 
-const ComposeTweet = ({ currentUser, handleSubmit }) => {
+const ComposeTweet = ({ afterSubmit }) => {
+  const [currentUser] = React.useContext(CurrentUserContext);
+
   const [status, setStatus] = React.useState('');
   const [sending, setSending] = React.useState(false);
 
@@ -25,9 +28,18 @@ const ComposeTweet = ({ currentUser, handleSubmit }) => {
           return;
         }
 
-        handleSubmit(status).then(() => {
+        fetch('/api/tweet', {
+          method: 'POST',
+          body: JSON.stringify({
+            status,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then(() => {
           setStatus('');
           setSending(false);
+          afterSubmit();
         });
       }}
     >
@@ -83,7 +95,7 @@ const Textarea = styled.textarea`
   border: none;
   resize: none;
   padding: 12px;
-  height: 100px;
+  height: 150px;
   color: ${p => p.theme.colors.gray[900]};
 
   &:focus {

@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Avatar = ({ handle, src, size }) => {
+const Avatar = ({ handle, src, size, ...delegated }) => {
   return (
     <Wrapper
       alt={`${handle}'s avatar`}
       src={src}
       style={{ width: size, height: size }}
+      {...delegated}
     />
   );
 };

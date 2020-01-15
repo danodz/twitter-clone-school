@@ -9,12 +9,9 @@ import Divider from '../Divider';
 import Feed from '../Feed';
 import CenteredSpinner from '../CenteredSpinner';
 import SadScreen from '../SadScreen';
-import CurrentUserContext from '../CurrentUserContext';
 import { TweetsProvider } from '../TweetsContext';
 
 const HomeFeed = () => {
-  const [currentUser] = React.useContext(CurrentUserContext);
-
   const [data, status, retrigger] = useApiEndpoint('/me/home-feed');
 
   let mainContent;
@@ -29,20 +26,7 @@ const HomeFeed = () => {
   return (
     <Wrapper>
       <Header>Home</Header>
-      <ComposeTweet
-        currentUser={currentUser}
-        handleSubmit={status => {
-          return fetch('/api/tweet', {
-            method: 'POST',
-            body: JSON.stringify({
-              status,
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }).then(retrigger);
-        }}
-      />
+      <ComposeTweet afterSubmit={retrigger} />
       <Divider size={10} />
       <TweetsProvider
         tweetsById={data ? data.tweetsById : undefined}

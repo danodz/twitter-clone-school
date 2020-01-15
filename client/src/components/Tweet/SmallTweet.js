@@ -1,15 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Avatar from '../Avatar';
 import TweetActions from './TweetActions';
 import TweetMedia from './TweetMedia';
 import { getHumanizedDate } from './Tweet.helpers';
+import TwitterUsername from './TwitterUsername';
 
 const SmallTweet = ({ tweet }) => {
+  const history = useHistory();
+
   return (
-    <WrapperLink to={`/tweet/${tweet.id}`}>
+    <Wrapper
+      tabIndex="0"
+      onClick={ev => {
+        history.push(`/tweet/${tweet.id}`);
+      }}
+      onKeyPress={ev => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (ev.key === 'Enter' && ev.target === ev.currentTarget) {
+          history.push(`/tweet/${tweet.id}`);
+        }
+      }}
+    >
       <Article>
         <Avatar
           handle={tweet.author.handle}
@@ -18,7 +33,7 @@ const SmallTweet = ({ tweet }) => {
         />
         <MainContent>
           <TopRow>
-            <PrimaryIdentifier>{tweet.author.displayName}</PrimaryIdentifier>{' '}
+            <TwitterUsername user={tweet.author} />{' '}
             <SecondaryIdentifiers>
               @{tweet.author.handle} · {getHumanizedDate(tweet.timestamp)}
             </SecondaryIdentifiers>
@@ -28,17 +43,18 @@ const SmallTweet = ({ tweet }) => {
           <Actions tweet={tweet} showCounts={true} />
         </MainContent>
       </Article>
-    </WrapperLink>
+    </Wrapper>
   );
 };
 
-const WrapperLink = styled(Link)`
+const Wrapper = styled.div`
   display: block;
   padding: 12px;
   padding-bottom: 4px;
   border-bottom: 1px solid ${p => p.theme.colors.gray[200]};
   text-decoration: none;
   color: ${p => p.theme.colors.gray[900]};
+  cursor: pointer;
 
   &:hover {
     background-color: ${p => p.theme.colors.gray[100]};
@@ -65,10 +81,6 @@ const TopRow = styled.div`
   font-size: 15px;
 `;
 
-const PrimaryIdentifier = styled.span`
-  font-weight: bold;
-  color: ${p => p.theme.colors.gray[900]};
-`;
 const SecondaryIdentifiers = styled.span`
   font-size: 14px;
   color: ${p => p.theme.colors.gray[500]};
@@ -78,6 +90,7 @@ const Body = styled.p`
   margin-top: 8px;
   margin-bottom: 8px;
   line-height: 1.3;
+  font-size: 15px;
 `;
 
 export default SmallTweet;

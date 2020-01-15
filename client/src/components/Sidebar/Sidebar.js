@@ -1,16 +1,24 @@
-import React from "react";
-import styled from "styled-components";
-import { home } from "react-icons-kit/feather/home";
-import { user } from "react-icons-kit/feather/user";
-import { bookmark } from "react-icons-kit/feather/bookmark";
-import { bell } from "react-icons-kit/feather/bell";
+import React from 'react';
+import styled from 'styled-components';
+import { home } from 'react-icons-kit/feather/home';
+import { user } from 'react-icons-kit/feather/user';
+import { bookmark } from 'react-icons-kit/feather/bookmark';
+import { bell } from 'react-icons-kit/feather/bell';
 
-import { COLORS } from "../../constants";
+import { COLORS } from '../../constants';
 
-import Logo from "../Logo";
-import NavigationLink from "../NavigationLink";
+import Logo from '../Logo';
+import NavigationLink from '../NavigationLink';
+import Modal from '../Modal';
+import Spacer from '../Spacer';
+import Button from '../Button';
+import ComposeTweet from '../ComposeTweet';
 
 const Sidebar = () => {
+  const [showComposeTweetModal, setShowComposeTweetModal] = React.useState(
+    false
+  );
+
   return (
     <Wrapper>
       <LogoWrapper>
@@ -20,6 +28,16 @@ const Sidebar = () => {
       <NavigationLink href="/joshwcomeau" name="Profile" icon={user} />
       <NavigationLink href="/notifications" name="Notifications" icon={bell} />
       <NavigationLink href="/bookmarks" name="Bookmarks" icon={bookmark} />
+      <Spacer size={16} />
+      <Button onClick={() => setShowComposeTweetModal(true)}>Meow</Button>
+
+      <Modal
+        isOpen={showComposeTweetModal}
+        handleClose={() => setShowComposeTweetModal(false)}
+        label="Compose new tweet modal"
+      >
+        <ComposeTweet afterSubmit={() => setShowComposeTweetModal(false)} />
+      </Modal>
     </Wrapper>
   );
 };

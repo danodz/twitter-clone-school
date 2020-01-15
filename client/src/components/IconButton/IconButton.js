@@ -15,8 +15,14 @@ const IconButton = ({ icon, color, num, status, size = 16, onClick }) => {
         '--button-size': size * 2 + 'px',
       }}
       onMouseUp={ev => ev.currentTarget.blur()}
+      onClick={onClick}
+      onKeyPress={ev => {
+        if (ev.key === 'Enter') {
+          onClick(ev);
+        }
+      }}
     >
-      <Wrapper onClick={onClick}>
+      <Wrapper>
         <IconElem icon={icon} size={size} />
       </Wrapper>
       {num > 0 && <Num>{num}</Num>}
