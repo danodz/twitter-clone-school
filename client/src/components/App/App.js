@@ -10,7 +10,7 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import CenteredSpinner from '../CenteredSpinner';
 import SadScreen from '../SadScreen';
 import HomeFeed from '../HomeFeed';
-import ProfileFeed from '../ProfileFeed';
+import Profile from '../Profile';
 import TweetDetails from '../TweetDetails';
 import CurrentUserContext, { CurrentUserProvider } from '../CurrentUserContext';
 import TweetsContext, { TweetsProvider } from '../TweetsContext';
@@ -31,8 +31,8 @@ const App = () => {
               <Route path="/tweet/:tweetId">
                 <TweetDetails />
               </Route>
-              <Route exact path="/:handle">
-                <ProfileFeed />
+              <Route path="/:handleId">
+                <Profile />
               </Route>
             </Switch>
           ) : authStatus === 'loading' ? (

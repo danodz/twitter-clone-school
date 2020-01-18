@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { getDetailedDate } from '../../helpers/date.helpers';
+
 import Avatar from '../Avatar';
 import TweetsContext from '../TweetsContext';
 import TweetActions from './TweetActions';
 import TweetMedia from './TweetMedia';
-import { getDetailedDate } from './Tweet.helpers';
 
 const pluralizeLike = num => (num === 1 ? 'Like' : 'Likes');
 const pluralizeRetweet = num => (num === 1 ? 'Retweet' : 'Retweets');

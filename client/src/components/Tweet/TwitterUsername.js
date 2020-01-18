@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import Tooltip from '../Tooltip';
 import Avatar from '../Avatar';
+import FollowerFollowingCount from '../FollowerFollowingCount/FollowerFollowingCount';
 
 const TwitterUsername = ({ user }) => {
   const history = useHistory();
@@ -24,14 +25,10 @@ const TwitterUsername = ({ user }) => {
           <DisplayName>{user.displayName}</DisplayName>
           <Handle>@{user.handle}</Handle>
           <Bio>{user.bio}</Bio>
-          <Row>
-            <Count>
-              <strong>{user.numFollowing}</strong> Following
-            </Count>
-            <Count>
-              <strong>{user.numFollowers}</strong> Followers
-            </Count>
-          </Row>
+          <FollowerFollowingCount
+            numFollowers={user.numFollowers}
+            numFollowing={user.numFollowing}
+          />
         </ProfileWrapper>
       }
     >
@@ -80,21 +77,6 @@ const Handle = styled.div`
 const Bio = styled.div`
   margin-top: 12px;
   margin-bottom: 12px;
-`;
-
-const Row = styled.div`
-  display: flex;
-`;
-
-const Count = styled.div`
-  color: ${p => p.theme.colors.gray[600]};
-  &:not(:last-of-type) {
-    margin-right: 24px;
-  }
-
-  strong {
-    color: ${p => p.theme.colors.gray[900]};
-  }
 `;
 
 export default TwitterUsername;

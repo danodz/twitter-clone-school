@@ -1,5 +1,5 @@
 /**
-  Endpoints related to profile information and user details 
+  Endpoints related to profile information and user details
 */
 const lodash = require('lodash');
 const router = require('express').Router();
@@ -45,6 +45,45 @@ router.get('/api/:handle/likes', (req, res) => {
   const followers = user.followerIds.map(getUserProfile);
 
   return res.json({ followers });
+});
+
+router.put('/api/:handle/follow', (req, res) => {
+  const user = getUser(req.params.handle);
+  const currentUser = getUser(CURRENT_USER_HANDLE);
+
+  if (user.followerIds.includes(CURRENT_USER_HANDLE)) {
+    res.status(409).json({
+      error: 'You are already following this user.',
+    });
+    return;
+  }
+
+  user.followerIds.push(CURRENT_USER_HANDLE);
+  currentUser.followingIds.push(user.handle);
+
+  res.json({ success: true });
+  return;
+});
+
+router.put('/api/:handle/unfollow', (req, res) => {
+  const user = getUser(req.params.handle);
+  const currentUser = getUser(CURRENT_USER_HANDLE);
+
+  if (!user.followerIds.includes(CURRENT_USER_HANDLE)) {
+    res.status(409).json({
+      error: 'You do not follow the user you are trying to unfollow.',
+    });
+    return;
+  }
+
+  const followerHandleIndex = user.followerIds.indexOf(CURRENT_USER_HANDLE);
+  user.followerIds.splice(followerHandleIndex, 1);
+
+  const followingHandleIndex = currentUser.followingIds.indexOf(user.handle);
+  currentUser.followingIds.splice(followingHandleIndex, 1);
+
+  res.json({ success: true });
+  return;
 });
 
 module.exports = router;

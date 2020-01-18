@@ -6,6 +6,10 @@ export const getHumanizedDate = timestamp => {
   return format(parseISO(timestamp), 'MMM do');
 };
 
+export const getJoinedDate = timestamp => {
+  return format(parseISO(timestamp), 'MMMM yyyy');
+};
+
 export const getDetailedDate = timestamp => {
   return format(parseISO(timestamp), 'h:mm a · MMM d y');
 };

@@ -31,6 +31,7 @@ const getUser = handle => {
 };
 const getUserProfile = handle => {
   const user = getUser(handle);
+  const currentUser = data.users[CURRENT_USER_HANDLE];
 
   const mutableUser = { ...user };
 
@@ -41,6 +42,10 @@ const getUserProfile = handle => {
   mutableUser.numFollowing = user.followingIds.length;
   mutableUser.numFollowers = user.followerIds.length;
   mutableUser.numLikes = user.likeIds.length;
+  mutableUser.isFollowingYou = user.followingIds.includes(currentUser.handle);
+  mutableUser.isBeingFollowedByYou = currentUser.followingIds.includes(
+    user.handle
+  );
 
   return mutableUser;
 };

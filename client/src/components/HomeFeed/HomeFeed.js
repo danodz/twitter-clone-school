@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 import useApiEndpoint from '../../hooks/use-api-endpoint.hook';
 
+import { TweetsProvider } from '../TweetsContext';
 import Header from '../Header';
 import ComposeTweet from '../ComposeTweet';
 import Divider from '../Divider';
 import Feed from '../Feed';
 import CenteredSpinner from '../CenteredSpinner';
 import SadScreen from '../SadScreen';
-import { TweetsProvider } from '../TweetsContext';
 
 const HomeFeed = () => {
   const [data, status, retrigger] = useApiEndpoint('/me/home-feed');

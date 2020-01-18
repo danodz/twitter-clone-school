@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
+import { getHumanizedDate } from '../../helpers/date.helpers';
+
 import Avatar from '../Avatar';
 import TweetActions from './TweetActions';
 import TweetMedia from './TweetMedia';
-import { getHumanizedDate } from './Tweet.helpers';
 import TwitterUsername from './TwitterUsername';
 
 const SmallTweet = ({ tweet }) => {

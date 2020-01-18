@@ -18,9 +18,9 @@ const {
  * Get the specified tweet + any replies (soon)
  */
 router.get('/api/tweet/:tweetId', (req, res) => {
-  const tweet = Object.values(data.tweets).find(
-    t => t.id === req.params.tweetId
-  );
+  const tweet = data.tweets[req.params.tweetId];
+
+  console.log(tweet, req.params.tweetId, data.tweets);
 
   return simulateProblems(res, { tweet: denormalizeTweet(tweet), replies: [] });
 });

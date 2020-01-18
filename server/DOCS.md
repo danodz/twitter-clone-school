@@ -23,7 +23,9 @@ Example:
       "bio": "Best friends with @treasurymog.",
       "numFollowing": 4,
       "numFollowers": 10,
-      "numLikes": 21
+      "numLikes": 21,
+      "isFollowingYou": true,
+      "isBeingFollowedByYou": false
     },
     "timestamp": "2020-01-09T13:20:00+00:00",
     "numLikes": 800,

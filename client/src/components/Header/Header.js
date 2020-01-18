@@ -5,9 +5,11 @@ import { COLORS } from '../../constants';
 
 import Heading from '../Heading';
 
-const Header = ({ children }) => {
+const Header = ({ children, action }) => {
+  const hasAction = !!action;
   return (
-    <Wrapper>
+    <Wrapper style={{ paddingLeft: hasAction ? 0 : undefined }}>
+      {hasAction && <ActionWrapper>{action}</ActionWrapper>}
       <Heading size="small">{children}</Heading>
     </Wrapper>
   );
@@ -21,6 +23,11 @@ const Wrapper = styled.header`
   font-size: 20px;
   font-weight: 600;
   border-bottom: 1px solid ${COLORS.gray[200]};
+`;
+
+const ActionWrapper = styled.div`
+  margin-right: 12px;
+  margin-left: 12px;
 `;
 
 export default Header;

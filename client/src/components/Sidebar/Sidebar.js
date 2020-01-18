@@ -7,6 +7,7 @@ import { bell } from 'react-icons-kit/feather/bell';
 
 import { COLORS } from '../../constants';
 
+import CurrentUserContext from '../CurrentUserContext';
 import Logo from '../Logo';
 import NavigationLink from '../NavigationLink';
 import Modal from '../Modal';
@@ -15,6 +16,8 @@ import Button from '../Button';
 import ComposeTweet from '../ComposeTweet';
 
 const Sidebar = () => {
+  const [currentUser] = React.useContext(CurrentUserContext);
+
   const [showComposeTweetModal, setShowComposeTweetModal] = React.useState(
     false
   );
@@ -25,7 +28,11 @@ const Sidebar = () => {
         <Logo size={42} />
       </LogoWrapper>
       <NavigationLink href="/" name="Home" icon={home} />
-      <NavigationLink href="/joshwcomeau" name="Profile" icon={user} />
+      <NavigationLink
+        href={`/${currentUser ? currentUser.handle : ''}`}
+        name="Profile"
+        icon={user}
+      />
       <NavigationLink href="/notifications" name="Notifications" icon={bell} />
       <NavigationLink href="/bookmarks" name="Bookmarks" icon={bookmark} />
       <Spacer size={16} />
