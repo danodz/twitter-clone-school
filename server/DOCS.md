@@ -14,11 +14,103 @@ Some aspects of this API design are a little strange, and this is by design; oft
 
 Endpoints are grouped in 3 categories:
 
+- **profile** - relating to users and profiles
 - **tweet** - single tweet
 - **feeds** - groups of tweets
-- **profile** - relating to users and profiles
 
-## Tweet
+## Profile Endpoints
+
+These endpoints control user-specific things: getting profile data and following./unfollowing.
+
+### GET /api/me/profile
+
+Get the profile for the currently-logged-in user.
+
+Should come in this structure:
+
+```json
+{
+  "handle": "diplomog",
+  "displayName": "Palmerston",
+  "avatarSrc": "/assets/diplomog-avatar.jpg",
+  "bannerSrc": "/assets/diplomog-banner.jpeg",
+  "location": "Whitehall",
+  "url": "http://fco.gov.uk",
+  "joined": "2016-02-02T12:00",
+  "bio": "Best friends with @treasurymog.",
+  "numFollowing": 1,
+  "numFollowers": 1,
+  "numLikes": 1,
+  "isFollowingYou": false,
+  "isBeingFollowedByYou": false
+}
+```
+
+### GET /api/:handle/profile
+
+Fetch the information for a specific user. Returns data in the same shape as `/api/me/profile`.
+
+If the user handle supplied does not exist, it returns a 404 error of `user-not-found`.
+
+### GET /api/:handle/following
+
+Returns an array of user profiles that the specified user is following.
+
+```json
+{
+  "following": [
+    /* User profile 1, same shape as above endpoints */
+    /* User profile 2, same shape as above endpoints */
+    /* User profile 3, same shape as above endpoints */
+  ]
+}
+```
+
+### GET /api/:handle/followers
+
+Same as /api/:handle/following, but shows the user's followers (people who follow the user, instead of people that the user follows).
+
+```json
+{
+  "followers": [
+    /* User profile 1, same shape as above endpoints */
+    /* User profile 2, same shape as above endpoints */
+    /* User profile 3, same shape as above endpoints */
+  ]
+}
+```
+
+### PUT /api/:handle/follow
+
+Follow the specified user, for the currently-logged-in user.
+
+If you are _already following this user_, you'll get a "409 Conflict" error; you want to use the /unfollow endpoint instead.
+
+If all goes well, you should receive the following response:
+
+```json
+{
+  "success": true
+}
+```
+
+### PUT /api/:handle/unfollow
+
+Stop following the specified user, for the currently-logged-in user.
+
+If you are _not following this user_, you'll get a "409 Conflict" error; you want to use the /follow endpoint instead.
+
+If all goes well, you should receive the following response:
+
+```json
+{
+  "success": true
+}
+```
+
+---
+
+## Tweet Endpoints
 
 ### GET /api/tweet/:tweetId
 
@@ -132,11 +224,9 @@ If everything goes well, you'll get a response that looks like this:
 }
 ```
 
-You'll get an error if you try to like a tweet that is already liked, or unlike a tweet that is not liked.
-
 ---
 
-## Feeds
+## Feed Endpoints
 
 All feed endpoints return data in the following structure:
 
@@ -202,44 +292,3 @@ Get all the tweets from all the users that the current user is following.
 Returns a list of tweets authored by the user specified with the :handle param. Includes any retweets that user has made.
 
 ---
-
-### GET /api/:handle/feed
-
-Returns an array of tweets from the user specified.
-
-```json
-{
-  "tweets": [
-    // See GET /api/tweet/:tweetId for an example of
-    // the data received for each tweet.
-  ]
-}
-```
-
-### GET /api/me/feed
-
-Same as `/api/:handle/tweets`, but for the current user
-
-### PUT /api/tweet/:tweetId/like
-
-Toggles between liking and unliking the specified tweet, by the current user.
-
-You must specify whether the tweet should be liked in the request, using the `like` query parameter.
-
-Example body:
-
-```json
-{
-  "like": true
-}
-```
-
-Response:
-
-```json
-{
-  "success": true
-}
-```
-
-If the tweet cannot be found, it returns a 404.

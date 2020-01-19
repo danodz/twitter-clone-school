@@ -125,7 +125,6 @@ router.put('/api/tweet/:tweetId/retweet', (req, res) => {
   }
 
   // Disallow "repeat" requests (eg trying to like an already-liked tweet).
-  console.log(tweet);
   const currentlyRetweeted = tweet.retweetedBy.includes(CURRENT_USER_HANDLE);
 
   if (retweet === currentlyRetweeted) {
@@ -155,8 +154,6 @@ router.put('/api/tweet/:tweetId/retweet', (req, res) => {
         tweet.authorHandle === CURRENT_USER_HANDLE
       );
     });
-
-    console.log(retweet);
 
     delete data.tweets[retweet.id];
   }

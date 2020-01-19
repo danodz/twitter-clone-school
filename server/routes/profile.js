@@ -47,12 +47,6 @@ router.get('/api/:handle/followers', (req, res) => {
 
   return res.json({ followers });
 });
-router.get('/api/:handle/likes', (req, res) => {
-  const user = getUser(req.params.handle);
-  const followers = user.followerIds.map(getUserProfile);
-
-  return res.json({ followers });
-});
 
 router.put('/api/:handle/follow', (req, res) => {
   const user = getUser(req.params.handle);
