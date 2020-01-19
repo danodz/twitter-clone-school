@@ -3,7 +3,7 @@ const data = require('../data');
 // HARDCODED CURRENT USER.
 const CURRENT_USER_HANDLE = 'treasurymog';
 
-const MAX_DELAY = 1000; // TODO: Change me back to 3000
+const MAX_DELAY = 1000;
 
 // Our server is very lean and quick, given that it doens't actually connect
 // to a database or deal with any sort of scale!
@@ -31,6 +31,11 @@ const getUser = handle => {
 };
 const getUserProfile = handle => {
   const user = getUser(handle);
+
+  if (!user) {
+    throw new Error('user-not-found');
+  }
+
   const currentUser = data.users[CURRENT_USER_HANDLE];
 
   const mutableUser = { ...user };
@@ -48,6 +53,21 @@ const getUserProfile = handle => {
   );
 
   return mutableUser;
+};
+
+const resolveRetweet = tweet => {
+  if (!tweet.retweetOf) {
+    return tweet;
+  }
+
+  const originalTweet = data.tweets[tweet.retweetOf];
+
+  return {
+    ...originalTweet,
+    id: tweet.id,
+    retweetFrom: getUserProfile(tweet.authorHandle),
+    sortedTimestamp: tweet.timestamp,
+  };
 };
 
 const denormalizeTweet = tweet => {
@@ -71,6 +91,39 @@ const denormalizeTweet = tweet => {
 const getTweetsFromUser = userId => {
   return Object.values(data.tweets)
     .filter(tweet => tweet.authorHandle.toLowerCase() === userId.toLowerCase())
+    .map(resolveRetweet)
+    .map(denormalizeTweet);
+};
+
+const duplicateTweetReducer = (acc, tweet, index, allTweets) => {
+  // If the user is following Profile A and Profile B, and Profile B
+  // retweets the tweet of Profile A, we only want to show whichever
+  // copy is newest, not both.
+  for (let i = 0; i < index; i++) {
+    let iteratedTweet = allTweets[i];
+
+    if (
+      iteratedTweet.id === tweet.retweetOf ||
+      tweet.id === iteratedTweet.retweetOf
+    ) {
+      return acc;
+    }
+  }
+
+  return [...acc, tweet];
+};
+
+const getTweetsForUser = userId => {
+  const user = data.users[userId];
+
+  return Object.values(data.tweets)
+    .filter(
+      tweet =>
+        user.followingIds.includes(tweet.authorHandle.toLowerCase()) ||
+        tweet.authorHandle.toLowerCase() === CURRENT_USER_HANDLE.toLowerCase()
+    )
+    .reduce(duplicateTweetReducer, [])
+    .map(resolveRetweet)
     .map(denormalizeTweet);
 };
 
@@ -79,6 +132,8 @@ module.exports = {
   simulateProblems,
   getUser,
   getUserProfile,
+  resolveRetweet,
   denormalizeTweet,
   getTweetsFromUser,
+  getTweetsForUser,
 };

@@ -8,6 +8,7 @@ import Avatar from '../Avatar';
 import TweetActions from './TweetActions';
 import TweetMedia from './TweetMedia';
 import TwitterUsername from './TwitterUsername';
+import RetweetPrefix from './RetweetPrefix';
 
 const SmallTweet = ({ tweet }) => {
   const history = useHistory();
@@ -26,6 +27,7 @@ const SmallTweet = ({ tweet }) => {
         }
       }}
     >
+      {tweet.retweetFrom && <RetweetPrefix profile={tweet.retweetFrom} />}
       <Article>
         <Avatar
           handle={tweet.author.handle}
@@ -84,7 +86,7 @@ const TopRow = styled.div`
 
 const SecondaryIdentifiers = styled.span`
   font-size: 14px;
-  color: ${p => p.theme.colors.gray[500]};
+  color: ${p => p.theme.colors.gray[600]};
 `;
 const Body = styled.p`
   margin: 0;

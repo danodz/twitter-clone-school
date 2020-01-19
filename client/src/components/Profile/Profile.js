@@ -10,17 +10,31 @@ import SadScreen from '../SadScreen';
 import ProfileHeader from '../ProfileHeader';
 import TabLinks from '../TabLinks';
 import ProfileTweetFeed from '../ProfileTweetFeed/ProfileTweetFeed';
+import Paragraph from '../Paragraph';
 
 const Profile = () => {
   const { handleId } = useParams();
 
   const [profileData, profileStatus] = useApiEndpoint(`/${handleId}/profile`);
 
+  if (profileStatus === 'error') {
+    if (profileData.error === 'user-not-found') {
+      return (
+        <SadScreen title="User not found">
+          <Paragraph>
+            There is no user with this name. Are you sure you've spelled it
+            correctly?
+          </Paragraph>
+        </SadScreen>
+      );
+    } else {
+      return <SadScreen />;
+    }
+  }
+
   let headerContent;
   if (profileStatus === 'loading') {
     headerContent = <CenteredSpinner />;
-  } else if (profileStatus === 'error' || !profileData) {
-    return <SadScreen />;
   } else {
     headerContent = <ProfileHeader profile={profileData.profile} />;
   }

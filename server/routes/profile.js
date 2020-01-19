@@ -21,7 +21,14 @@ router.get('/api/me/profile', (req, res) => {
 });
 
 router.get('/api/:handle/profile', (req, res) => {
-  const profile = getUserProfile(req.params.handle);
+  let profile;
+  try {
+    profile = getUserProfile(req.params.handle);
+  } catch (err) {
+    if (err.message === 'user-not-found') {
+      return res.status(400).json({ error: 'user-not-found' });
+    }
+  }
 
   return res.json({
     profile,

@@ -7,8 +7,6 @@ import TweetsContext from '../TweetsContext';
 const Feed = ({ handle, mode }) => {
   const [state] = React.useContext(TweetsContext);
 
-  console.log(state);
-
   return (
     <Wrapper>
       {state.tweetIds.map(tweetId => {

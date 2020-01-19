@@ -7,15 +7,20 @@ import { Link } from 'react-router-dom';
 import Heading from '../Heading';
 import Paragraph from '../Paragraph';
 
-const SadScreen = () => {
+const SadScreen = ({
+  title = 'An unknown error has occurred.',
+  children = (
+    <Paragraph>
+      Please try refreshing the page, or{' '}
+      <Link to="/contact">contact support</Link> if the problem persists.
+    </Paragraph>
+  ),
+}) => {
   return (
     <Wrapper>
       <Icon icon={bomb} size={64} />
-      <Title>An unknown error has occurred.</Title>
-      <Paragraph>
-        Please try refreshing the page, or{' '}
-        <Link to="/contact">contact support</Link> if the problem persists.
-      </Paragraph>
+      <Title>{title}</Title>
+      {children}
     </Wrapper>
   );
 };

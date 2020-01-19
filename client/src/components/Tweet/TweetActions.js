@@ -78,7 +78,6 @@ const TweetActions = ({ tweet, showCounts, ...delegated }) => {
         onClick={ev => {
           ev.stopPropagation();
           ev.preventDefault();
-          console.log('click');
         }}
       />
     </Wrapper>

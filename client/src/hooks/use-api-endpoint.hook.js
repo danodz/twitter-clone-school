@@ -10,9 +10,14 @@ export default function useApiEndpoint(endpoint) {
       .then(data => {
         setData(data);
 
-        setStatus('idle');
+        if (data.error) {
+          setStatus('error');
+        } else {
+          setStatus('idle');
+        }
       })
       .catch(err => {
+        setData(err);
         setStatus('error');
       });
   };

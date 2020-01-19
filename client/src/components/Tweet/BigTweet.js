@@ -7,6 +7,7 @@ import Avatar from '../Avatar';
 import TweetsContext from '../TweetsContext';
 import TweetActions from './TweetActions';
 import TweetMedia from './TweetMedia';
+import RetweetPrefix from './RetweetPrefix';
 
 const pluralizeLike = num => (num === 1 ? 'Like' : 'Likes');
 const pluralizeRetweet = num => (num === 1 ? 'Retweet' : 'Retweets');
@@ -17,6 +18,8 @@ const BigTweet = ({ tweetId }) => {
 
   return (
     <Wrapper role="article" tabIndex="0">
+      {tweet.retweetFrom && <RetweetPrefix profile={tweet.retweetFrom} />}
+
       <Header>
         <Avatar
           handle={tweet.author.handle}

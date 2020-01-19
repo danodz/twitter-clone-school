@@ -1,5 +1,5 @@
 /**
-  Endpoints related to feeds (ordered sets of tweets) 
+  Endpoints related to feeds (ordered sets of tweets)
 */
 const lodash = require('lodash');
 const router = require('express').Router();
@@ -11,25 +11,17 @@ const {
   getUser,
   getUserProfile,
   getTweetsFromUser,
+  getTweetsForUser,
   simulateProblems,
+  resolveRetweet,
   denormalizeTweet,
 } = require('./routes.helpers.js');
 
-router.get('/api/:handle/home-feed', (req, res) => {
-  const handle =
-    req.params.handle === 'me' ? CURRENT_USER_HANDLE : req.params.handle;
-  const currentUser = data.users[handle];
-
-  const relevantTweets = Object.values(data.tweets)
-    .filter(
-      tweet =>
-        currentUser.followingIds.includes(tweet.authorHandle) ||
-        tweet.authorHandle === handle
-    )
-    .map(denormalizeTweet);
+router.get('/api/me/home-feed', (req, res) => {
+  const relevantTweets = getTweetsForUser(CURRENT_USER_HANDLE);
 
   const sortedTweetIds = lodash
-    .sortBy(relevantTweets, 'timestamp')
+    .sortBy(relevantTweets, 'sortedTimestamp')
     .reverse()
     .map(tweet => tweet.id);
 
@@ -51,7 +43,7 @@ router.get('/api/:handle/feed', (req, res) => {
   const tweets = getTweetsFromUser(handle);
 
   const sortedTweetIds = lodash
-    .sortBy(tweets, 'timestamp')
+    .sortBy(tweets, 'sortedTimestamp')
     .reverse()
     .map(tweet => tweet.id);
 

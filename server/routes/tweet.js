@@ -10,42 +10,62 @@ const data = require('../data');
 
 const {
   CURRENT_USER_HANDLE,
+  resolveRetweet,
   denormalizeTweet,
   simulateProblems,
 } = require('./routes.helpers.js');
+
+const createTweet = (status, { isRetweet }) => {
+  const newTweetId = Math.random() * 10 ** 18;
+  const timestamp = new Date().toISOString();
+
+  let sharedTweetBasics = {
+    id: newTweetId,
+    authorHandle: CURRENT_USER_HANDLE,
+    timestamp,
+    sortedTimestamp: timestamp,
+  };
+
+  if (isRetweet) {
+    // HACK: ideally, this `createTweet` function should also link retweets
+    // to their parent, with the `retweetOf` field. This is a shitty
+    // abstraction, but it's the best one I could come up with :/
+    return sharedTweetBasics;
+  } else {
+    return {
+      ...sharedTweetBasics,
+      likedBy: [],
+      retweetedBy: [],
+      status: status,
+      media: [],
+    };
+  }
+};
 
 /**
  * Get the specified tweet + any replies (soon)
  */
 router.get('/api/tweet/:tweetId', (req, res) => {
-  const tweet = data.tweets[req.params.tweetId];
+  let tweet = data.tweets[req.params.tweetId];
 
-  console.log(tweet, req.params.tweetId, data.tweets);
+  tweet = resolveRetweet(tweet);
+  tweet = denormalizeTweet(tweet);
 
-  return simulateProblems(res, { tweet: denormalizeTweet(tweet), replies: [] });
+  return simulateProblems(res, { tweet, replies: [] });
 });
 
 /**
  * Post a new tweet
  */
 router.post('/api/tweet', (req, res) => {
-  const newTweetId = Math.random() * 10 ** 18;
-
-  const newTweet = {
-    id: newTweetId,
-    authorHandle: CURRENT_USER_HANDLE,
-    timestamp: new Date().toISOString(),
-    likedBy: [],
-    retweetedBy: [],
-    status: req.body.status,
-    media: [],
-  };
-
-  data.tweets[newTweetId] = newTweet;
+  data.tweets[newTweetId] = createTweet(req.body.status, { isRetweet: false });
 
   return simulateProblems(res, { tweet: newTweet });
 });
 
+/**
+ * Like a tweet
+ */
 router.put('/api/tweet/:tweetId/like', (req, res) => {
   const { like } = req.body;
 
@@ -105,6 +125,7 @@ router.put('/api/tweet/:tweetId/retweet', (req, res) => {
   }
 
   // Disallow "repeat" requests (eg trying to like an already-liked tweet).
+  console.log(tweet);
   const currentlyRetweeted = tweet.retweetedBy.includes(CURRENT_USER_HANDLE);
 
   if (retweet === currentlyRetweeted) {
@@ -117,10 +138,27 @@ router.put('/api/tweet/:tweetId/retweet', (req, res) => {
 
   if (retweet) {
     tweet.retweetedBy.push(CURRENT_USER_HANDLE);
+
+    const retweet = createTweet(null, { isRetweet: true });
+    retweet.retweetOf = req.params.tweetId;
+
+    data.tweets[retweet.id] = retweet;
   } else {
     tweet.retweetedBy = tweet.retweetedBy.filter(
       handle => handle !== CURRENT_USER_HANDLE
     );
+
+    // HACK: finding the retweet is so so so not scalable.
+    const retweet = Object.values(data.tweets).find(tweet => {
+      return (
+        tweet.retweetOf === req.params.tweetId &&
+        tweet.authorHandle === CURRENT_USER_HANDLE
+      );
+    });
+
+    console.log(retweet);
+
+    delete data.tweets[retweet.id];
   }
 
   return res.json({ success: true });

@@ -28,6 +28,8 @@ const App = () => {
               <Route exact path="/">
                 <HomeFeed currentUser={currentUser} />
               </Route>
+              <Route path="/notifications">Notifications</Route>
+              <Route path="/bookmarks">Bookmarks</Route>
               <Route path="/tweet/:tweetId">
                 <TweetDetails />
               </Route>
