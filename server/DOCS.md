@@ -10,6 +10,33 @@ Some aspects of this API design are a little strange, and this is by design; oft
 
 ---
 
+# Setup and ports
+
+Run `yarn install` to install dependencies, and then `yarn start` to start the server.
+
+The server runs on port **31415**, so you can access the server at `http://localhost:31415/`. As a test, you can go to `http://localhost:31415/api/me/profile`. You should see a JSON object shown in the browser:
+
+```json
+{
+  "profile": {
+    "handle": "treasurymog",
+    "displayName": "Gladstone, Esq.",
+    "avatarSrc": "/assets/treasurymog-avatar.jpg",
+    "bannerSrc": "/assets/treasurymog-banner.jpeg",
+    "location": "Whitehall, London",
+    "joined": "2016-10-12T12:00",
+    "bio": "I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.",
+    "numFollowing": 2,
+    "numFollowers": 2,
+    "numLikes": 1,
+    "isFollowingYou": false,
+    "isBeingFollowedByYou": false
+  }
+}
+```
+
+---
+
 # Endpoints
 
 Endpoints are grouped in 3 categories:
@@ -30,19 +57,20 @@ Should come in this structure:
 
 ```json
 {
-  "handle": "diplomog",
-  "displayName": "Palmerston",
-  "avatarSrc": "/assets/diplomog-avatar.jpg",
-  "bannerSrc": "/assets/diplomog-banner.jpeg",
-  "location": "Whitehall",
-  "url": "http://fco.gov.uk",
-  "joined": "2016-02-02T12:00",
-  "bio": "Best friends with @treasurymog.",
-  "numFollowing": 1,
-  "numFollowers": 1,
-  "numLikes": 1,
-  "isFollowingYou": false,
-  "isBeingFollowedByYou": false
+  "profile": {
+    "handle": "treasurymog",
+    "displayName": "Gladstone, Esq.",
+    "avatarSrc": "/assets/treasurymog-avatar.jpg",
+    "bannerSrc": "/assets/treasurymog-banner.jpeg",
+    "location": "Whitehall, London",
+    "joined": "2016-10-12T12:00",
+    "bio": "I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.",
+    "numFollowing": 2,
+    "numFollowers": 2,
+    "numLikes": 1,
+    "isFollowingYou": false,
+    "isBeingFollowedByYou": false
+  }
 }
 ```
 
