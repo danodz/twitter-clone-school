@@ -6,7 +6,15 @@ import { COLORS } from '../../constants';
 
 import UnstyledButton from '../UnstyledButton';
 
-const IconButton = ({ icon, color, num, status, size = 16, onClick }) => {
+const IconButton = ({
+  icon,
+  color,
+  num,
+  status,
+  size = 16,
+  onClick,
+  ...delegated
+}) => {
   return (
     <OuterWrapper
       style={{
@@ -21,6 +29,7 @@ const IconButton = ({ icon, color, num, status, size = 16, onClick }) => {
           onClick(ev);
         }
       }}
+      {...delegated}
     >
       <Wrapper>
         <IconElem icon={icon} size={size} />

@@ -3,7 +3,8 @@ const data = require('../data');
 // HARDCODED CURRENT USER.
 const CURRENT_USER_HANDLE = 'treasurymog';
 
-const MAX_DELAY = 1000;
+const MAX_DELAY = 2000;
+const FAILURE_ODDS = 0.05;
 
 // Our server is very lean and quick, given that it doens't actually connect
 // to a database or deal with any sort of scale!
@@ -15,7 +16,7 @@ const simulateProblems = (res, data) => {
   const delay = Math.random() * MAX_DELAY;
 
   setTimeout(() => {
-    const shouldError = Math.random() <= 0.05;
+    const shouldError = Math.random() <= FAILURE_ODDS;
 
     if (shouldError) {
       res.sendStatus(500);
@@ -67,6 +68,8 @@ const resolveRetweet = tweet => {
     id: tweet.id,
     retweetFrom: getUserProfile(tweet.authorHandle),
     sortedTimestamp: tweet.timestamp,
+    likedBy: tweet.likedBy,
+    retweetedBy: tweet.retweetedBy,
   };
 };
 

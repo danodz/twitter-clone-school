@@ -19,6 +19,7 @@ const TweetActions = ({ tweet, showCounts, ...delegated }) => {
       <IconButton
         icon={replyIcon}
         color={COLORS.primary}
+        aria-label="Reply to tweet"
         onClick={ev => {
           ev.stopPropagation();
           ev.preventDefault();
@@ -27,6 +28,7 @@ const TweetActions = ({ tweet, showCounts, ...delegated }) => {
       <IconButton
         icon={retweetIcon}
         color={COLORS.retweet}
+        aria-label={tweet.isRetweeted ? 'Undo retweet' : 'Retweet'}
         status={tweet.isRetweeted ? 'on' : 'off'}
         num={showCounts && tweet.numRetweets}
         onClick={ev => {
@@ -50,6 +52,7 @@ const TweetActions = ({ tweet, showCounts, ...delegated }) => {
         icon={tweet.isLiked ? likeFilledIcon : likeOutlineIcon}
         color={COLORS.error}
         size={18}
+        aria-label={tweet.isLiked ? 'Undo like' : 'Like'}
         status={tweet.isLiked ? 'on' : 'off'}
         num={showCounts && tweet.numLikes}
         onClick={ev => {
@@ -75,6 +78,7 @@ const TweetActions = ({ tweet, showCounts, ...delegated }) => {
       <IconButton
         icon={shareIcon}
         color={COLORS.primary}
+        aria-label="Share tweet"
         onClick={ev => {
           ev.stopPropagation();
           ev.preventDefault();

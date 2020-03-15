@@ -43,7 +43,7 @@ const createTweet = (status, { isRetweet }) => {
 };
 
 /**
- * Get the specified tweet + any replies (soon)
+ * Get the specified tweet
  */
 router.get('/api/tweet/:tweetId', (req, res) => {
   let tweet = data.tweets[req.params.tweetId];
@@ -51,7 +51,7 @@ router.get('/api/tweet/:tweetId', (req, res) => {
   tweet = resolveRetweet(tweet);
   tweet = denormalizeTweet(tweet);
 
-  return simulateProblems(res, { tweet, replies: [] });
+  return simulateProblems(res, { tweet });
 });
 
 /**
@@ -83,6 +83,8 @@ router.put('/api/tweet/:tweetId/like', (req, res) => {
     });
     return;
   }
+
+  console.log(tweet);
 
   // Disallow "repeat" requests (eg trying to like an already-liked tweet).
   const currentlyLiked = tweet.likedBy.includes(CURRENT_USER_HANDLE);

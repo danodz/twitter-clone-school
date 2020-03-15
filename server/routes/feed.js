@@ -17,44 +17,45 @@ const {
   denormalizeTweet,
 } = require('./routes.helpers.js');
 
-router.get('/api/me/home-feed', (req, res) => {
-  const relevantTweets = getTweetsForUser(CURRENT_USER_HANDLE);
-
-  const sortedTweetIds = lodash
-    .sortBy(relevantTweets, 'sortedTimestamp')
-    .reverse()
-    .map(tweet => tweet.id);
-
-  const tweetsById = relevantTweets.reduce((acc, tweet) => {
-    acc[tweet.id] = tweet;
-    return acc;
-  }, {});
-
-  return simulateProblems(res, {
-    tweetsById,
-    tweetIds: sortedTweetIds,
-  });
-});
-
-router.get('/api/:handle/feed', (req, res) => {
-  const handle =
-    req.params.handle === 'me' ? CURRENT_USER_HANDLE : req.params.handle;
-
-  const tweets = getTweetsFromUser(handle);
-
-  const sortedTweetIds = lodash
+const formatTweetResponse = tweets => {
+  const tweetIds = lodash
     .sortBy(tweets, 'sortedTimestamp')
     .reverse()
     .map(tweet => tweet.id);
 
   const tweetsById = tweets.reduce((acc, tweet) => {
-    acc[tweet.id] = tweet;
+    acc[tweet.id] = { ...tweet };
+
+    // Clients don't need to know about this.
+    delete acc[tweet.id].sortedTimestamp;
+
     return acc;
   }, {});
 
+  return { tweetsById, tweetIds };
+};
+
+router.get('/api/me/home-feed', (req, res) => {
+  const relevantTweets = getTweetsForUser(CURRENT_USER_HANDLE);
+
+  const { tweetsById, tweetIds } = formatTweetResponse(relevantTweets);
+
+  return simulateProblems(res, {
+    tweetsById,
+    tweetIds,
+  });
+});
+
+router.get('/api/:handle/feed', (req, res) => {
+  const { handle } = req.params;
+
+  const tweets = getTweetsFromUser(handle);
+
+  const { tweetsById, tweetIds } = formatTweetResponse(tweets);
+
   return res.json({
     tweetsById,
-    tweetIds: sortedTweetIds,
+    tweetIds,
   });
 });
 

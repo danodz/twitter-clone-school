@@ -52,6 +52,8 @@ const tweets = {
     timestamp: '2020-01-19T09:14:00+00:00',
     sortedTimestamp: '2020-01-19T09:14:00+00:00',
     retweetOf: '1209791721099411456',
+    likedBy: [],
+    retweetedBy: [],
   },
   '1212689921057665024': {
     id: '1212689921057665024',
@@ -89,6 +91,8 @@ const tweets = {
     timestamp: '2020-01-19T09:14:00+00:00',
     sortedTimestamp: '2020-01-19T09:14:00+00:00',
     retweetOf: '1215324598067245056',
+    likedBy: [],
+    retweetedBy: [],
   },
 
   '1214624813723136002': {

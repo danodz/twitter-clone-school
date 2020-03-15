@@ -16,16 +16,17 @@ const SmallTweet = ({ tweet }) => {
   return (
     <Wrapper
       tabIndex="0"
+      aria-label="View tweet"
       onClick={ev => {
         history.push(`/tweet/${tweet.id}`);
       }}
-      onKeyPress={ev => {
-        ev.preventDefault();
-        ev.stopPropagation();
-        if (ev.key === 'Enter' && ev.target === ev.currentTarget) {
-          history.push(`/tweet/${tweet.id}`);
-        }
-      }}
+      // onKeyPress={ev => {
+      //   ev.preventDefault();
+      //   ev.stopPropagation();
+      //   if (ev.key === 'Enter' && ev.target === ev.currentTarget) {
+      //     history.push(`/tweet/${tweet.id}`);
+      //   }
+      // }}
     >
       {tweet.retweetFrom && <RetweetPrefix profile={tweet.retweetFrom} />}
       <Article>
