@@ -49,7 +49,7 @@ Your application should include the following features:
 
 ### View a single tweet
 
-![Single tweet view](single-tweet-view.png)
+![Single tweet view](./assets/screenshots/single-tweet-view.png)
 
 When the user navigates to `/tweet/:tweetId`, they should see the details for the specified tweet.
 
@@ -57,25 +57,25 @@ When the user navigates to `/tweet/:tweetId`, they should see the details for th
 
 When navigating to the root URL `/`, the user should see a list of tweets from the accounts that the current user follows.
 
-![Home feed view](index-view.gif)
+![Home feed view](./assets/screenshots/index-view.gif)
 
 ### View a profile page
 
 When navigating to `/:profileId`, information about that user is displayed, above a list of that user's tweets (and retweets):
 
-![Home feed view](profile-view.png)
+![Home feed view](./assets/screenshots/profile-view.png)
 
 ### Liking a tweet
 
 When clicking the "like" button, it should increment the # of likes. Clicking again should "unlike" the tweet.
 
-![liking tweets](like-tweet.gif)
+![liking tweets](./assets/screenshots/like-tweet.gif)
 
 ### Posting a new tweet
 
 On the homepage, the user should be able to create a new tweet by writing in the box and clicking "Meow":
 
-![Posting a new tweet](post-tweet.gif)
+![Posting a new tweet](./assets/screenshots/post-tweet.gif)
 
 It should show up in the feed below after posting.
 
@@ -161,7 +161,7 @@ Use CSS to position the sidebar beside all the routes.
 
 You should now be able to click between different links in the left sidebar, which loads different (mostly empty) routes on the right:
 
-![Routes](./routes.gif)
+![Routes](./assets/screenshots/routes.gif)
 
 You'll notice that the "active" route is coloured purple. To achieve this, you can use the NavLink component from React Router. The library will append an `.active` class to the current route's link. You can wrap it with styled-components, and use the `.active` selector to apply a color:
 
@@ -232,8 +232,8 @@ Your next steps are up to you. The rest of this document outlines specific neces
 
 There are two different Tweet components: a big one, used on the Tweet Details page, and a small one, to be used in different feeds.
 
-![Big tweet](./big-tweet.png)
-![Small tweet](./small-tweet.png)
+![Big tweet](./assetsscreenshots//big-tweet.png)
+![Small tweet](./assets/screenshots/small-tweet.png)
 
 You'll notice that these tweets share some UI elements in common, whereas other are different. If you try to create a single `Tweet` component, it will get awfully complicated. Might be better to have two separate components, but to share reusable bits (eg. maybe a `TweetActions` component for the row of icons along the bottom, since it's identical in both versions).
 
@@ -241,11 +241,11 @@ You'll notice that these tweets share some UI elements in common, whereas other 
 
 Twitter does something a little peculiar when it comes to click targets. Notice how the card itself is a link to the "tweet details" page, and yet the user's display name is a link to that user's profile:
 
-![Clicking different things within the tweet card has different results](./click-targets.gif)
+![Clicking different things within the tweet card has different results](./assets/screenshots/click-targets.gif)
 
 Making matters more complicated, the entire thing is keyboard-navigable:
 
-![Navigating via a keyboard](./keyboard-nav.gif)
+![Navigating via a keyboard](./assets/screenshots/keyboard-nav.gif)
 
 We are not allowed to nest links inside links. So how is this possible?
 
@@ -266,7 +266,7 @@ Actually performing a retweet is beyond the scope of this project, but we need t
 
 For example, when viewing the `treasurymog` profile, the following tweet is shown:
 
-![Retweet](./retweet.png)
+![Retweet](./assets/screenshots/retweet.png)
 
 This tweet is written by the `diplomog` account, but shows up in the `treasurymog` profile feed, since `treasurymog` retweeted it.
 
@@ -276,7 +276,7 @@ If a specific tweet is retweeted, it will have data in the `retweetFrom` part of
 
 Twitter allows tweets up to 280 characters. You should display a "remaining characters" indicator, which shifts colors as the user approaches/surpasses the limit:
 
-![Character counter](./character-count.gif)
+![Character counter](./assets/screenshots/character-count.gif)
 
 Specifically, here are the rules:
 
@@ -295,7 +295,7 @@ Certain requests will fail 5% of the time. The API endpoints that can fail are:
 
 For the GET endpoints, you can create an error screen, and show it if the request fails:
 
-![Failure screen](./failure.png)
+![Failure screen](./assets/screenshots/failure.png)
 
 The "bomb" icon is imported from the "noto emoji" collection, in react-icons-kit:
 
@@ -318,7 +318,7 @@ This way you'll get an error every time, which can be helpful when developing.
 
 The initial loading experience should look something like this:
 
-![Spinners shown during loading](./loading-states.gif)
+![Spinners shown during loading](./assets/screenshots/loading-states.gif)
 
 Note that there are two separate spinners shown.
 
@@ -352,7 +352,7 @@ You can use `date-fns` to process this. Check out the `format` function.
 
 An easy thing to miss: after tweeting, your own new tweet should pop into the feed:
 
-![After a short delay, the newly-composed tweet appears at the top of the home feed](./tweet-in-feed.gif)
+![After a short delay, the newly-composed tweet appears at the top of the home feed](./assets/screenshots/tweet-in-feed.gif)
 
 Depending on how you've structured your application, this might be a pretty tricky thing to pull off!
 
