@@ -4,22 +4,34 @@ This project asks you to create a Twitter clone, "Critter":
 
 Your focus will be on the front-end: an API is provided, and documented in `server/API_DOCS.md`. You can read this document thoroughly to build an understanding of what the different endpoints are, and how they work.
 
+---
+
 ## Initial setup
 
-A folder is provided, `/server`, with the backend code. You'll need to create the front-end using `create-react-app`. Run the following from within the main workshop directory:
+### The Server
 
-```bash
-npx create-react-app client
-```
+A folder is provided, `/server`, with the backend code. This is a local server that you will connect to to retrieve/write the data.
 
-This will create a brand-new React application in the `/client` directory, next to `/server`. You can `cd` into this directory and install some dependencies you'll need:
+#### Install the backend dependencies
+
+1. Navigate to the server folder `cd server`
+2. Install the required packages `yarn install`
+
+And that's it for the backend! No editing the code in server at all.
+
+#### Install React for the frontend
+
+You'll need to create the front-end using `create-react-app`. Run the following from _within the main workshop directory_:
+
+1. If you just installed the server dependencies, you'll need to `cd ..` to get back to the main project directory.
+2. Run the following command `npx create-react-app client`. This will create a new folder called `client` in the project. ALL of the work for this project will be done in there.
+3. There are some additional dependencies that you will need for the project. Navigate the client folder. `cd client`
+4. Install the following dependencies with `yarn`:
 
 - styled-components
 - react-router-dom
-- react-icons-kit
-- date-fns
-
-> `date-fns` is a new library for us! It's a date-manipulation library. It has very good documentation, and you'll need to spend some time with it later on in this project.
+- react-icons
+- moment
 
 After they're installed, you can run `yarn start` to start the front-end application.
 
@@ -27,13 +39,15 @@ You can find instructions for running the server application in `serverAPI_/DOCS
 
 The cat silhouette logo is provided in `assets/logo.svg`
 
+---
+
 ## Twitter crash course
 
 If you're not familiar with Twitter, this section helps describe the app we're building a clone of.
 
-Twitter is a social network / "micro-blogging" platform. You must be registered to post, but tweets are public and can be seen by non-registered users. Every twitter user chooses a username, often called a "handle". Conventionally, the handle is prefixed with an "@" symbol (eg. `@misswhatever`).
+Twitter is a social network/"micro-blogging" platform. You must be registered to post, but tweets are public and can be seen by non-registered users. Every twitter user chooses a username, often called a "handle". Conventionally, the handle is prefixed with an "@" symbol (eg. `@misswhatever`).
 
-A "tweet" is a post, limited to 280 characters. Tweets can include media like photos or videos (though our clone will have limited media support).
+A "tweet" is a post, limited to 280 characters. Tweets can include media like photos or videos. Our clone will have limited media support.
 
 Every profile as a "feed". A feed is a series of tweets. A user's profile feed shows all of the tweets they've posted, plus all of the tweets they've shared.
 
@@ -42,6 +56,8 @@ Users can follow each other. Unlike friends on facebook, following does not requ
 Every user has a "home feed". The home feed is a list of tweets that have been posted by the people that you follow. If you follow 100 accounts, your home feed will be a stream of tweets from those 100 people, along with things that those 100 people choose to "retweet".
 
 A retweet is a way of sharing a tweet. If I follow `@koolkat`, and Kool Kat really likes Metallica, I may start seeing Metallica tweets in my home feed if Kool Kat retweets them.
+
+---
 
 ## Functionality
 
@@ -79,7 +95,9 @@ On the homepage, the user should be able to create a new tweet by writing in the
 
 It should show up in the feed below after posting.
 
-# Not required
+---
+
+## Not required
 
 A fully-functional Twitter clone would have many other features that we won't be tackling:
 
@@ -94,16 +112,18 @@ A fully-functional Twitter clone would have many other features that we won't be
 
 Some of these features are optional stretch goals. For more information, see `STRETCH.md` once you have completed all the primary objectives.
 
+--
+
 # Getting started
 
 There are many valid ways to accomplish this project. The following is just one example of a way this could work.
 
-### Routes
+## Routes
 
 First thing's first, the create-react-app code includes some placeholder content. We can delete most of it. We'll keep `src/index.js` and `src/App.js`, though let's turn App into a clean slate:
 
 ```js
-import React from 'react';
+import React from "react";
 
 const App = () => {
   return <div>Hello world</div>;
@@ -143,7 +163,7 @@ In our clone, a bright purple is used in a lot of different places. To reduce du
 ```js
 export const COLORS = {
   // Bright purple:
-  primary: 'hsl(258deg, 100%, 50%)',
+  primary: "hsl(258deg, 100%, 50%)",
 
   // Add more colors as needed!
 };
@@ -166,9 +186,9 @@ You should now be able to click between different links in the left sidebar, whi
 You'll notice that the "active" route is coloured purple. To achieve this, you can use the NavLink component from React Router. The library will append an `.active` class to the current route's link. You can wrap it with styled-components, and use the `.active` selector to apply a color:
 
 ```js
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
-import { COLORS } from '../constants';
+import { COLORS } from "../constants";
 
 const NavigationLink = styled(NavLink)`
   /* default styles here */
@@ -198,7 +218,7 @@ You can either use two state hooks, or a reducer hook; the choice is yours. Here
 ```js
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = React.useState(null);
-  const [status, setStatus] = React.useState('loading');
+  const [status, setStatus] = React.useState("loading");
 
   // Fetch the user data from the API (/me/profile)
   // When the data is received, update currentUser.

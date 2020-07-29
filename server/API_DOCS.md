@@ -12,7 +12,7 @@ Some aspects of this API design are a little strange, and this is by design; oft
 
 # Setup and ports
 
-Run `yarn install` to install dependencies, and then `yarn start` to start the server.
+Run `yarn install` to install dependencies, and then `yarn start:server` to start the server.
 
 The server runs on port **31415**, so you can access the server at `http://localhost:31415/`. As a test, you can go to `http://localhost:31415/api/me/profile`. You should see a JSON object shown in the browser:
 
