@@ -35,6 +35,12 @@ The server runs on port **31415**, so you can access the server at `http://local
 }
 ```
 
+You will need to add a `proxy` to the server in `client/package.json`. This will allow you to use relative paths in your `fetch` requests to the server.
+
+```json
+"proxy": "http://localhost:31415"
+```
+
 ---
 
 # Endpoints
