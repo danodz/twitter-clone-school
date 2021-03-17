@@ -278,20 +278,6 @@ Normally, we would never do this, but we don't have much choice in the matter. T
 - Add an `aria-label` for screen readers, something like "View tweet".
 - Make sure to handle keypresses as well as clicks; if the user presses "enter" with this tweet focused, it should redirect the user.
 
-### Retweets
-
-A "retweet" is a way for one user to share another user's tweets with their followers.
-
-Actually performing a retweet is beyond the scope of this project, but we need to display retweets returned by the API.
-
-For example, when viewing the `treasurymog` profile, the following tweet is shown:
-
-![Retweet](./assets/screenshots/retweet.png)
-
-This tweet is written by the `diplomog` account, but shows up in the `treasurymog` profile feed, since `treasurymog` retweeted it.
-
-If a specific tweet is retweeted, it will have data in the `retweetFrom` part of the JSON object. You can use this data to show the little "retweeted by" header.
-
 ### Character limit
 
 Twitter allows tweets up to 280 characters. You should display a "remaining characters" indicator, which shifts colors as the user approaches/surpasses the limit:
@@ -317,15 +303,11 @@ For the GET endpoints, you can create an error screen, and show it if the reques
 
 ![Failure screen](./assets/screenshots/failure.png)
 
-The "bomb" icon is imported from the "noto emoji" collection, in react-icons-kit:
-
-```
-import { u1F4A3 as bomb } from 'react-icons-kit/noto_emoji_regular/u1F4A3';
-```
+The "bomb" icon is imported from the "noto emoji" collection, in react-icons:
 
 The POST /api/tweet endpoint is the one used for creating new tweets. You'll want to let the user know that their attempt to post a new tweet failed, and encourage them to try again.
 
-_HINT:_ It can be _very_ annoying while building this out to keep refreshing the page hoping for an error. To increase the error rate temporarily, change the following value in `server/routes/routes.helpers.js`:
+**HINT:** It can be _very_ annoying while building this out to keep refreshing the page hoping for an error. To increase the error rate temporarily, change the following value in `server/routes/routes.helpers.js`:
 
 ```diff
 - const FAILURE_ODDS = 0.05
