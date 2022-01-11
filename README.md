@@ -97,7 +97,7 @@ It should show up in the feed below after posting.
 
 ---
 
-## Not required
+## **Not required**
 
 A fully-functional Twitter clone would have many other features that we won't be tackling:
 
@@ -252,7 +252,12 @@ Your next steps are up to you. The rest of this document outlines specific neces
 
 There are two different Tweet components: a big one, used on the Tweet Details page, and a small one, to be used in different feeds.
 
-![Big tweet](./assetsscreenshots//big-tweet.png)
+Big Tweet:
+
+![Big tweet](./assets/screenshots//big-tweet.png)
+
+Small Tweet:
+
 ![Small tweet](./assets/screenshots/small-tweet.png)
 
 You'll notice that these tweets share some UI elements in common, whereas other are different. If you try to create a single `Tweet` component, it will get awfully complicated. Might be better to have two separate components, but to share reusable bits (eg. maybe a `TweetActions` component for the row of icons along the bottom, since it's identical in both versions).
@@ -263,10 +268,6 @@ Twitter does something a little peculiar when it comes to click targets. Notice 
 
 ![Clicking different things within the tweet card has different results](./assets/screenshots/click-targets.gif)
 
-Making matters more complicated, the entire thing is keyboard-navigable:
-
-![Navigating via a keyboard](./assets/screenshots/keyboard-nav.gif)
-
 We are not allowed to nest links inside links. So how is this possible?
 
 We need to break one of our golden rules: we need to add click-handlers to a non-anchor and non-button.
@@ -274,9 +275,6 @@ We need to break one of our golden rules: we need to add click-handlers to a non
 Normally, we would never do this, but we don't have much choice in the matter. There are some things we need to do to make it work, though:
 
 - Since we can't use a `<Link>` from React Router, we'll need to navigate the user using the `history` utility. Check out the [React Router docs](https://reacttraining.com/react-router/web/api/Hooks/usehistory) for more info.
-- Make sure the div has `tabIndex="0"`, so that it can be tabbed to with a keyboard
-- Add an `aria-label` for screen readers, something like "View tweet".
-- Make sure to handle keypresses as well as clicks; if the user presses "enter" with this tweet focused, it should redirect the user.
 
 ### Character limit
 
