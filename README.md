@@ -112,7 +112,7 @@ A fully-functional Twitter clone would have many other features that we won't be
 
 Some of these features are optional stretch goals. For more information, see `STRETCH.md` once you have completed all the primary objectives.
 
---
+---
 
 # Getting started
 
