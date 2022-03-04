@@ -25,7 +25,7 @@ You'll need to create the front-end using `create-react-app`. Run the following 
 
 1. If you just installed the server dependencies, you'll need to `cd ..` to get back to the main project directory.
 2. Run the following command `npx create-react-app client`. This will create a new folder called `client` in the project. ALL of the work for this project will be done in there.
-3. There are some additional dependencies that you will need for the project. Navigate the client folder. `cd client`
+3. There are some additional dependencies that you will need for the project. Navigate to the client folder: `cd client`
 4. Install the following dependencies with `yarn`:
 
 - styled-components
