@@ -2,21 +2,17 @@
 
 > NOTE: This is a **large project**. Even the non-stretch goals are a lot to get done in the available time! If you're peeking ahead and worried you won't get to these, please don't worry.
 
-## 1. Retweets
+## 1. Keyboard navigation
 
-In the original goals, we wired up the "like" button, but we never set up the retweet!
+Keyboard navigation is a must for accessability! Make sure your website can navigated with the use of a keyboard too.
 
-It should wind up looking quite a lot like the "like" button solution.
+> **HINT**: You'll want to use the `tabIndex="0"` property to get started.
 
 ## 2. Profile tooltips
 
 When hovering over a user's display name, a tooltip should reveal more information about the person:
 
-![hovering over various display names](./assets/tooltip.gif)
-
 You can use Tippy.js/react for this! Bonus points for adding a subtle delay before showing/hiding, to prevent unwanted opening/closing.
-
-Ensure that the tooltip works with keyboard navigation.
 
 ## 3. Responsive design
 
