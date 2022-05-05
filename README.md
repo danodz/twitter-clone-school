@@ -36,7 +36,9 @@ You'll need to create the front-end using `create-react-app`. Run the following 
 
 After they're installed, you can run `yarn start` to start the front-end application.
 
-You can find instructions for running the server application in `serverAPI_/DOCS.md`
+>NOTE: Newer versions of React tend to be a bit wonky with react-router-dom v5. Remove `React.StrictMode` from the `index.js` of the client to fix this!
+
+You can find instructions for running the server application in `server/API_/DOCS.md`
 
 The cat silhouette logo is provided in `assets/logo.svg`
 
@@ -207,7 +209,7 @@ const NavigationLink = styled(NavLink)`
 
 Next, we need to get information about the current user!
 
-The API makes information available at `/me/profile`. We'll want to fetch the data from the API, and store it in React state. We'll make that state available anywhere in the app using Context.
+The API makes information available at `/api/me/profile`. We'll want to fetch the data from the API, and store it in React state. We'll make that state available anywhere in the app using Context.
 
 Create a new component, `CurrentUserContext`. Refer to the Context lectures and workshops for a refresher on how context components work. We'll want to use the `fetch` API, and store the data we receive.
 
@@ -222,7 +224,7 @@ export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [status, setStatus] = React.useState("loading");
 
-  // Fetch the user data from the API (/me/profile)
+  // Fetch the user data from the API (/api/me/profile)
   // When the data is received, update currentUser.
   // Also, set `status` to `idle`
 

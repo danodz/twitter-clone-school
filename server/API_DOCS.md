@@ -41,6 +41,8 @@ You will need to add a `proxy` to the server in `client/package.json`. This will
 "proxy": "http://localhost:31415"
 ```
 
+>NOTE: Once you've added the proxy, you need to restart your React server!
+
 ---
 
 # Endpoints
