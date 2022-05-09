@@ -216,7 +216,7 @@ You'll need to send a JSON body in the following format:
 
 The endpoint will return your new tweet, in the standard tweet format (including the auto-generated unique ID).
 
-### PUT /api/tweet/:tweetId/like
+### PUT /api/tweet/:tweetId/like - (THIS IS A STRETCH GOAL)
 
 Mark a tweet as "liked" from the current user, or remove an existing "like" status.
 
@@ -240,7 +240,7 @@ If everything goes well, you'll get a response that looks like this:
 
 You'll get an error if you try to like a tweet that is already liked, or unlike a tweet that is not liked.
 
-### PUT /api/tweet/:tweetId/retweet
+### PUT /api/tweet/:tweetId/retweet - (THIS IS A STRETCH GOAL)
 
 A "retweet" takes someone else's tweet and copies it to your own timeline. It's a way of sharing a piece of content with your followers.
 
@@ -271,9 +271,9 @@ All feed endpoints return data in the following structure:
 ```json
 {
   "tweetsById": {
-    "abc": /* Tweet with ID 'abc' */,
-    "def": /* Tweet with ID 'def' */,
     "ghi": /* Tweet with ID 'ghi' */,
+    "def": /* Tweet with ID 'def' */,
+    "abc": /* Tweet with ID 'abc' */,
   },
   "tweetIds": [
     "abc",
