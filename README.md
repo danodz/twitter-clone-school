@@ -238,6 +238,8 @@ export const CurrentUserProvider = ({ children }) => {
 
 You can wrap the provider around the app in `src/index.js`, and consume it in `App`. If the `status` is `loading`, we can show a loading message instead of rendering all the routes.
 
+> Since we don't have a real login method for our website, `CurrentUserContext` will act as our signed in user (which will always be `treasurymog`).
+
 # Next steps
 
 At this point, we have our routes, we have our user, and an example of data fetching. These are the patterns we'll want to rely on as we continue building out the app!
@@ -249,6 +251,8 @@ Again, don't worry too much on the styling at first. More important to get the l
 Beyond that, it's up to you to keep putting the app together, 1 component at a time!
 
 Your next steps are up to you. The rest of this document outlines specific necessary features and "gotchas" surrounding them, but it's up to you to decide what order to do things in, and how to solve the problems you encounter.
+
+> TIP: fetching data is usually done locally in the relevant component!
 
 # Requirements and Gotchas
 
@@ -350,7 +354,9 @@ The API returns the date in a different format:
 timestamp: "2019-12-26T14:38:00+00:00"
 ```
 
-You can use `date-fns` to process this. Check out the `format` function.
+You can use `date-fns` to process this. Check out the [format](https://date-fns.org/v2.28.0/docs/format) function.
+
+> You can also use `momentjs` if you prefer.
 
 ### Refetching after tweeting
 
