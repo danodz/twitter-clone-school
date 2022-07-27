@@ -30,13 +30,11 @@ You'll need to create the front-end using `create-react-app`. Run the following 
 4. Install the following dependencies with `yarn`:
 
 - styled-components
-- react-router-dom@5.3.0
+- react-router-dom
 - react-icons
 - moment
 
 After they're installed, you can run `yarn start` to start the front-end application.
-
->NOTE: Newer versions of React tend to be a bit wonky with react-router-dom v5. Remove `React.StrictMode` from the `index.js` of the client to fix this!
 
 You can find instructions for running the server application in `server/API_/DOCS.md`
 
@@ -278,11 +276,11 @@ Twitter does something a little peculiar when it comes to click targets. Notice 
 
 We are not allowed to nest links inside links. So how is this possible?
 
-We need to break one of our golden rules: we need to add click-handlers to a non-anchor and non-button.
+We need to break one of our golden rules: we need to add click-handlers to a div.
 
 Normally, we would never do this, but we don't have much choice in the matter. There are some things we need to do to make it work, though:
 
-- Since we can't use a `<Link>` from React Router, we'll need to navigate the user using the `history` utility. Check out the [React Router docs](https://reacttraining.com/react-router/web/api/Hooks/usehistory) for more info.
+- Since we can't use a `<Link>` from React Router, we'll need to navigate the user using the `useNavigate` hook. Check out the [React Router docs](https://reactrouter.com/docs/en/v6/hooks/use-navigate) for more info.
 
 ### Character limit
 
