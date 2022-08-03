@@ -8,35 +8,39 @@ Your focus will be on the front-end: an API is provided, and documented in `serv
 
 ## Initial setup
 
-### The Server
+> **NOTE: You will need 2 terminals for this project to run!** (A split terminal works just as well)
 
-A folder is provided, `/server`, with the backend code. This is a local server that you will connect to to retrieve/write the data.
+### **First Terminal: The Server**
 
-#### Install the backend dependencies
+A `server` folder is provided with the backend code. This is a local server that you will connect to to retrieve/write the data.
 
-1. Navigate to the server folder `cd server`
-2. Install the required packages `yarn install`
-3. Once that's done you can start the server with `yarn start:server`
+#### Install the backend dependencies:
 
-And that's it for the backend! No editing the code in server at all.
+1. Open a terminal.
+2. Navigate to the server folder: `cd server`.
+3. Install the required packages: `yarn install`
+4. Once that's done you can start the server: `yarn start:server`
 
-#### Install React for the frontend
+And that's it for the backend! No editing the code in server at all, everything is already done.
 
-You'll need to create the front-end using `create-react-app`. Run the following from _within the main workshop directory_:
+### **Second Terminal: The Website**
 
-1. If you just installed the server dependencies, you'll need to open a new terminal to get back to the main project directory.
-2. Run the following command `npx create-react-app client`. This will create a new folder called `client` in the project. ALL of the work for this project will be done in there.
+In this project, there is no `client` folder provided. You'll need to create one by following these steps:
+
+1. Open a new terminal (this should be your second terminal).
+2. Run the following command `npx create-react-app client`. This will create a new folder called `client` in the root of the project. 
+    - **All of the work for this project will be done in there.**
 3. There are some additional dependencies that you will need for the project. Navigate to the client folder: `cd client`
-4. Install the following dependencies with `yarn`:
+4. Install the following dependencies:
 
 - styled-components
 - react-router-dom
 - react-icons
-- moment
+- moment || date-fns (pick one)
 
-After they're installed, you can run `yarn start` to start the front-end application.
+After they're installed, go to the `API_DOCS.md` file found in the `server` folder and read the section called `Setup and ports`.
 
-You can find instructions for running the server application in `server/API_/DOCS.md`
+Once you've followed the steps in there, you can run `yarn start` to start the front-end application.
 
 The cat silhouette logo is provided in `assets/logo.svg`
 
@@ -70,11 +74,19 @@ Your application should include the following features:
 
 When the user navigates to `/tweet/:tweetId`, they should see the details for the specified tweet.
 
+> **HINT**: you will need a `fetch` in this component!
+
+---
+
 ### View a "home feed"
 
 When navigating to the root URL `/`, the user should see a list of tweets from the accounts that the current user follows.
 
 ![Home feed view](./assets/screenshots/index-view.gif)
+
+> **HINT**: you will need a `fetch` in this component!
+
+---
 
 ### View a profile page
 
@@ -82,12 +94,19 @@ When navigating to `/:profileId`, information about that user is displayed, abov
 
 ![Home feed view](./assets/screenshots/profile-view.png)
 
+> **HINT**: you will need two `fetch`es in this component!
+
+---
+
 ### Liking a tweet
 
 When clicking the "like" button, it should increment the # of likes. Clicking again should "unlike" the tweet.
-> Doing this with a fetch is a stretch goal. Updating the state of the tweet is a minimum requirement!
 
 ![liking tweets](./assets/screenshots/like-tweet.gif)
+
+> **HINT**: You do not need a `fetch` for this functionality unless you are doing a stretch goal.
+
+---
 
 ### Posting a new tweet
 
@@ -97,9 +116,11 @@ On the homepage, the user should be able to create a new tweet by writing in the
 
 It should show up in the feed below after posting.
 
+> **HINT**: you will need a `fetch` method [POST](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#uploading_json_data) in this component! 
+
 ---
 
-## **Not required**
+# **Not required**
 
 A fully-functional Twitter clone would have many other features that we won't be tackling:
 
@@ -158,7 +179,9 @@ Next, let's add routes to all of these components! Import React Router, add a `<
 
 > It's important to put them in this order, within a Switch. **`/:profileId` should come last!** This is because it's the "loosest" route; `/notifications` _could_ match, since maybe there's a user with the username "notifications"
 
-### Styles and constants
+---
+
+## Styles and constants
 
 In our clone, a bright purple is used in a lot of different places. To reduce duplication, let's create a file, `src/constants.js`. We can export an object with the colors we'll need:
 
@@ -173,9 +196,13 @@ export const COLORS = {
 
 We can also create a new `GlobalStyles` component to hold our app-wide styles, and use it in `App`. You can apply a CSS reset here, and set global fonts (for this project, `sans-serif` works well!).
 
-This app uses many icons. You can find everything you'll need using react-icons. Here's a list of all icons in the "Feather" collection: https://react-icons.github.io/react-icons/icons?name=fi
+This app uses many icons. You can find everything you'll need using react-icons. Here's a list of all icons in the "Feather" collection: https://react-icons.github.io/react-icons/icons?name=fi.
 
-### Layout
+> You can use any collection, you're not limited to "Feather".
+
+---
+
+## Layout
 
 Create a `Sidebar` component. We'll need the cat logo shown in the top left, which we can move from `assets/logo.svg` (in the root directory of this workshop) to `src/assets/logo.svg`. Import it, and create links for all the navigation items in the sidebar, using React Router `<Link>`. For the `Profile` link, for now you can use a dummy profile ID (eg. `/profile/abc`).
 
@@ -202,6 +229,8 @@ const NavigationLink = styled(NavLink)`
 ```
 
 > **Important:** You don't need to nail the aesthetic right off the bat. A very loose interpretation is fine for now. The most important thing is to focus on getting all the right pieces in place; you can polish everything later on.
+
+---
 
 # Fetching user data
 
@@ -234,9 +263,13 @@ export const CurrentUserProvider = ({ children }) => {
 };
 ```
 
-You can wrap the provider around the app in `src/index.js`, and consume it in `App`. If the `status` is `loading`, we can show a loading message instead of rendering all the routes.
+You can wrap the provider around the app in `src/index.js`, and consume it in `App`. If the `status` is `"loading"`, we can show a loading message instead of rendering all the routes.
 
 > Since we don't have a real login method for our website, `CurrentUserContext` will act as our signed in user (which will always be `treasurymog`).
+
+> **NOTE: This is the only `fetch` that needs to happen exist of a `context`!**
+> 
+> **DOUBLE NOTE: This is the only `context` that should exist in the project!**
 
 # Next steps
 
@@ -254,23 +287,25 @@ Your next steps are up to you. The rest of this document outlines specific neces
 
 # Requirements and Gotchas
 
-### Tweet Components
+## Tweet Components
 
 There are two different Tweet components: a big one, used on the Tweet Details page, and a small one, to be used in different feeds.
 
-Big Tweet:
+### Big Tweet:
 
 ![Big tweet](./assets/screenshots//big-tweet.png)
 
-Small Tweet:
+### Small Tweet:
 
 ![Small tweet](./assets/screenshots/small-tweet.png)
 
 You'll notice that these tweets share some UI elements in common, whereas other are different. If you try to create a single `Tweet` component, it will get awfully complicated. Might be better to have two separate components, but to share reusable bits (eg. maybe a `TweetActions` component for the row of icons along the bottom, since it's identical in both versions).
 
-### Click targets
+---
 
-Twitter does something a little peculiar when it comes to click targets. Notice how the card itself is a link to the "tweet details" page, and yet the user's display name is a link to that user's profile:
+## Click targets
+
+Twitter does something a little peculiar when it comes to click targets. Notice how the tweet itself is a `<Link>` to the `<TweetDetails />` page, and yet the user's display name is a `<Link>` to that user's profile:
 
 ![Clicking different things within the tweet card has different results](./assets/screenshots/click-targets.gif)
 
@@ -282,7 +317,9 @@ Normally, we would never do this, but we don't have much choice in the matter. T
 
 - Since we can't use a `<Link>` from React Router, we'll need to navigate the user using the `useNavigate` hook. Check out the [React Router docs](https://reactrouter.com/docs/en/v6/hooks/use-navigate) for more info.
 
-### Character limit
+---
+
+## Character limit
 
 Twitter allows tweets up to 280 characters. You should display a "remaining characters" indicator, which shifts colors as the user approaches/surpasses the limit:
 
@@ -294,7 +331,9 @@ Specifically, here are the rules:
 - Should become red when the number dips into the negatives.
 - Should not be able to submit a tweet that has exceeded the limit.
 
-### Error screens
+---
+
+## Error screens
 
 Certain requests will fail 5% of the time. The API endpoints that can fail are:
 
@@ -320,7 +359,9 @@ The POST /api/tweet endpoint is the one used for creating new tweets. You'll wan
 
 This way you'll get an error every time, which can be helpful when developing.
 
-### Loading states
+---
+
+## Loading states
 
 The initial loading experience should look something like this:
 
@@ -332,7 +373,9 @@ The very first request is because we're fetching data about the current user. On
 
 For the spinner itself, you can use `react-icons-kit` and use a keyframes animation to rotate it by 360 degrees.
 
-### Time displays
+---
+
+## Time displays
 
 The "small" version of the tweet uses the following date format:
 
@@ -354,9 +397,11 @@ timestamp: "2019-12-26T14:38:00+00:00"
 
 You can use `date-fns` to process this. Check out the [format](https://date-fns.org/v2.28.0/docs/format) function.
 
-> You can also use `momentjs` if you prefer.
+> You can also use `moment` if you prefer.
 
-### Refetching after tweeting
+---
+
+## Refetching after tweeting
 
 An easy thing to miss: after tweeting, your own new tweet should pop into the feed:
 
@@ -364,4 +409,4 @@ An easy thing to miss: after tweeting, your own new tweet should pop into the fe
 
 Depending on how you've structured your application, this might be a pretty tricky thing to pull off!
 
-As a possible suggestion: you can pass a `handleAfterPublishTweet` callback to the component that makes the `fetch` call to publish the tweet. After the fetch resolves, you can call that `handleAfterPublishTweet` callback, which will re-fetch the set of tweets for the home feed.
+As a possible suggestion: you can pass a `reload` state to the component that makes the `fetch` call to show the home page. After the submit button is pressed, you can change that `reload` state, which will re-fetch the set of tweets for the home feed.

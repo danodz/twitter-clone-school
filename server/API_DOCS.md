@@ -14,7 +14,7 @@ Some aspects of this API design are a little strange, and this is by design; oft
 
 Run `yarn install` to install dependencies, and then `yarn start:server` to start the server.
 
-The server runs on port **31415**, so you can access the server at `http://localhost:31415/`. As a test, you can go to `http://localhost:31415/api/me/profile`. You should see a JSON object shown in the browser:
+The server runs on port **31415**, so you can access the server at `http://localhost:31415/`. As a test, you can go to `http://localhost:31415/api/me/profile` on your browser. You should see a JSON object:
 
 ```json
 {
@@ -35,13 +35,15 @@ The server runs on port **31415**, so you can access the server at `http://local
 }
 ```
 
-You will need to add a `proxy` to the server in `client/package.json`. This will allow you to use relative paths in your `fetch` requests to the server.
+You will need to add a `proxy` to the server in the `package.json` of the `client`. This will allow you to use relative paths in your `fetch` requests to the server.
+
+Add this line at the top of the `package.json` of the `client`, directly below the `"name"` key: 
 
 ```json
 "proxy": "http://localhost:31415"
 ```
 
->NOTE: Once you've added the proxy, you need to restart your React server!
+>NOTE: Once you've added the proxy, you need to restart your React server (if it was running)!
 
 ---
 
@@ -84,11 +86,11 @@ Should come in this structure:
 
 ### GET /api/:handle/profile
 
-Fetch the information for a specific user. Returns data in the same shape as `/api/me/profile`.
+Fetch the profile information for a specific user. Returns data in the same shape as `/api/me/profile`.
 
 If the user handle supplied does not exist, it returns a 404 error of `user-not-found`.
 
-### GET /api/:handle/following
+### GET /api/:handle/following - **(THIS IS A STRETCH GOAL)**
 
 Returns an array of user profiles that the specified user is following.
 
@@ -102,7 +104,7 @@ Returns an array of user profiles that the specified user is following.
 }
 ```
 
-### GET /api/:handle/followers
+### GET /api/:handle/followers - **(THIS IS A STRETCH GOAL)**
 
 Same as /api/:handle/following, but shows the user's followers (people who follow the user, instead of people that the user follows).
 
@@ -116,7 +118,7 @@ Same as /api/:handle/following, but shows the user's followers (people who follo
 }
 ```
 
-### PUT /api/:handle/follow
+### PUT /api/:handle/follow - **(THIS IS A STRETCH GOAL)**
 
 Follow the specified user, for the currently-logged-in user.
 
@@ -130,7 +132,7 @@ If all goes well, you should receive the following response:
 }
 ```
 
-### PUT /api/:handle/unfollow
+### PUT /api/:handle/unfollow - **(THIS IS A STRETCH GOAL)**
 
 Stop following the specified user, for the currently-logged-in user.
 
@@ -216,7 +218,7 @@ You'll need to send a JSON body in the following format:
 
 The endpoint will return your new tweet, in the standard tweet format (including the auto-generated unique ID).
 
-### PUT /api/tweet/:tweetId/like - (THIS IS A STRETCH GOAL)
+### PUT /api/tweet/:tweetId/like - **(THIS IS A STRETCH GOAL)**
 
 Mark a tweet as "liked" from the current user, or remove an existing "like" status.
 
@@ -240,7 +242,7 @@ If everything goes well, you'll get a response that looks like this:
 
 You'll get an error if you try to like a tweet that is already liked, or unlike a tweet that is not liked.
 
-### PUT /api/tweet/:tweetId/retweet - (THIS IS A STRETCH GOAL)
+### PUT /api/tweet/:tweetId/retweet - **(THIS IS A STRETCH GOAL)**
 
 A "retweet" takes someone else's tweet and copies it to your own timeline. It's a way of sharing a piece of content with your followers.
 
@@ -324,6 +326,8 @@ Tweets take the following shape:
 ### GET /api/me/home-feed
 
 Get all the tweets from all the users that the current user is following.
+
+> **HINT**: Make sure to read the section above to figure out how to render the tweets in the correct order!
 
 ### GET /api/:handle/feed
 
