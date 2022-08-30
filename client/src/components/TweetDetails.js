@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import SoloTweet from "./tweet/SoloTweet"
+import BigTweet from "./tweet/BigTweet"
 
 const TweetDetails = ()=>{
     const [tweet, setTweet] = useState(null);
@@ -17,7 +17,7 @@ const TweetDetails = ()=>{
 
     return (
         <>
-            {tweet ? <SoloTweet tweet={tweet} />: "LOADING"}
+            {tweet ? <BigTweet tweet={tweet} />: "LOADING"}
         </>
     )
 }

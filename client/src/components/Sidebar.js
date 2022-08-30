@@ -6,12 +6,20 @@ import {IoMdNotificationsOutline} from "react-icons/io"
 import {BsBookmark} from "react-icons/bs"
 
 import {COLORS} from "../constants"
+import { useContext } from "react";
+import { CurrentUserContext } from "./CurrentUserContext.js";
+
+import logoSrc from "../assets/logo.svg"
+import CatLogo from "./CatLogo";
 
 const Sidebar = ()=>{
+    const {currentUser} = useContext(CurrentUserContext)
+
     return (
         <Wrapper>
+            <CatLogo/>
             <NavLink to="/"><FiHome size={25}/>Home</NavLink>
-            <NavLink to="/:temp"><CgProfile size={25}/>Profile</NavLink>
+            <NavLink to={"/"+currentUser.handle}><CgProfile size={25}/>Profile</NavLink>
             <NavLink to="/notifications"><IoMdNotificationsOutline size={25}/>Notifications</NavLink>
             <NavLink to="/bookmarks"><BsBookmark size={25}/>Bookmarks</NavLink>
         </Wrapper>

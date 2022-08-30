@@ -1,19 +1,21 @@
 import moment from "moment";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ActionButtons from "./ActionButtons";
 import RetweetedFrom from "./RetweetedFrom";
 import TweetContent from "./TweetContent";
 
-const SoloTweet = ({tweet})=>{
-    console.log(tweet, tweet.author)
+const BigTweet = ({tweet})=>{
     return(
         <Wrapper>
             {tweet.retweetFrom && <RetweetedFrom author={tweet.retweetFrom}/>}
             <div className="user">
                 <img src={tweet.author.avatarSrc} alt="user avatar"/>
                 <div className="userIdentity">
-                    <span className="name">{tweet.author.displayName}</span>
-                    <p className="handle">@{tweet.author.handle} ·</p>
+                    <Link to={"/"+tweet.author.handle}>
+                        <span className="name">{tweet.author.displayName}</span>
+                        <p className="handle">@{tweet.author.handle}</p>
+                    </Link>
                 </div>
             </div>
             <TweetContent status={tweet.status} medias={tweet.media}/>
@@ -23,10 +25,10 @@ const SoloTweet = ({tweet})=>{
         </Wrapper>
     )
 }
-export default SoloTweet;
+export default BigTweet;
 
 const Wrapper = styled.div`
-    width: 500px;
+    width: 600px;
 
     .user img{
         width: 50px;
@@ -49,4 +51,7 @@ const Wrapper = styled.div`
         margin-left: 10px;
     }
 
+    a:hover *{
+        text-decoration: underline;
+    }
 `

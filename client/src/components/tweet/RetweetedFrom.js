@@ -11,5 +11,5 @@ const RetweetedFrom = ({author})=>{
 export default RetweetedFrom;
 
 const Wrapper = styled.div`
-
+    margin-left: 25px;
 `

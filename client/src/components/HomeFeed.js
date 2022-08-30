@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Tweet from "./tweet/FeedTweet";
+import FeedOfTweets from "./tweet/FeedOfTweets";
 
 const HomeFeed = ()=>{
     const [tweets, setTweets] = useState(null);
@@ -17,13 +17,7 @@ const HomeFeed = ()=>{
 
     return (
         <>
-            {feed===null && "LOADING"}
-            {feed!==null && 
-                feed.map((id)=>{
-                    const tweet = tweets[id];
-                    return <Tweet key={id} tweet={tweet}/>
-                })
-            }
+            <FeedOfTweets tweets={tweets} feed={feed}/>
         </>
     )
 }

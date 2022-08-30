@@ -3,14 +3,17 @@ import {AiOutlineHeart, AiFillHeart, AiOutlineUpload} from "react-icons/ai"
 import styled from "styled-components";
 
 const ActionButtons = ({isLiked})=>{
+    const preventDefault = (e)=>{
+        e.preventDefault();
+    }
     return (
         <Wrapper>
-            <button><FaRegCommentDots size={14}/></button>
-            <button><FaRetweet size={14}/></button>
-            <button>
+            <button onClick={preventDefault}><FaRegCommentDots size={14}/></button>
+            <button onClick={preventDefault}><FaRetweet size={14}/></button>
+            <button onClick={preventDefault}>
                 {isLiked?<AiFillHeart size={14}/>:<AiOutlineHeart size={15}/>}
             </button>
-            <button><AiOutlineUpload size={14}/></button>
+            <button onClick={preventDefault}><AiOutlineUpload size={14}/></button>
         </Wrapper>
     )
 }

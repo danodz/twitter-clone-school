@@ -17,10 +17,10 @@ function App() {
     <Router>
       {status==="loading" && <>LOADING</>}
       {status==="idle" && <Wrapper>
-        <div>
+        <div className="leftSide">
           <Sidebar/>
         </div>
-        <div>
+        <div className="rightSide">
           <Routes>
             <Route path="/" element={<HomeFeed/>}/>
             <Route path="/notifications" element={<Notifications/>}/>
@@ -38,6 +38,13 @@ export default App;
 
 const Wrapper = styled.div`
   display: flex;
-  width: 705px;
+  width: 850px;
   margin: 0 auto;
+
+  .leftSide{
+    width: 250px;
+  }
+  .rightSide{
+    width: 600px;
+  }
 `
