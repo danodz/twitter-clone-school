@@ -15,22 +15,22 @@ function App() {
 
   return (
     <Router>
-      <LoadManager status={currentUserLoadingStatus}>
         <Wrapper>
           <div className="leftSide">
             <Sidebar/>
           </div>
-          <div className="rightSide">
-            <Routes>
-              <Route path="/" element={<HomeFeed/>}/>
-              <Route path="/notifications" element={<Notifications/>}/>
-              <Route path="/bookmarks" element={<Bookmarks/>}/>
-              <Route path="/tweet/:tweetId" element={<TweetDetails/>}/>
-              <Route path="/:profileId" element={<Profile/>}/>
-            </Routes>
-          </div>
+          <LoadManager status={currentUserLoadingStatus}>
+            <div className="rightSide">
+              <Routes>
+                <Route path="/" element={<HomeFeed/>}/>
+                <Route path="/notifications" element={<Notifications/>}/>
+                <Route path="/bookmarks" element={<Bookmarks/>}/>
+                <Route path="/tweet/:tweetId" element={<TweetDetails/>}/>
+                <Route path="/:profileId" element={<Profile/>}/>
+              </Routes>
+            </div>
+          </LoadManager>
         </Wrapper>
-      </LoadManager>
     </Router>
   );
 }

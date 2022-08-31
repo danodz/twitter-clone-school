@@ -11,13 +11,19 @@ import { CurrentUserContext } from "./CurrentUserContext.js";
 import CatLogo from "./CatLogo";
 
 const Sidebar = ()=>{
-    const {currentUser} = useContext(CurrentUserContext)
+    const {currentUser, currentUserLoadingStatus} = useContext(CurrentUserContext)
     
     return (
         <Wrapper>
             <CatLogo/>
             <NavLink to="/"><FiHome size={25}/>Home</NavLink>
-            <NavLink to={"/"+currentUser.profile.handle}><CgProfile size={25}/>Profile</NavLink>
+            
+            {currentUserLoadingStatus==="success"?
+                <NavLink to={"/"+currentUser.profile.handle}><CgProfile size={25}/>Profile</NavLink>
+                :
+                <NavLink onClick={(e)=>e.preventDefault()} to="/profile" className="disabled"><CgProfile size={25}/>Profile</NavLink>
+            }
+            
             <NavLink to="/notifications"><IoMdNotificationsOutline size={25}/>Notifications</NavLink>
             <NavLink to="/bookmarks"><BsBookmark size={25}/>Bookmarks</NavLink>
         </Wrapper>
@@ -45,5 +51,10 @@ const Wrapper = styled.div`
     }
     svg{
         margin-right: 25px;
+    }
+
+    .disabled{
+        cursor: not-allowed;
+        filter: grayscale(100%);
     }
 `
