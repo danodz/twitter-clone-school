@@ -1,45 +1,28 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import FeedOfTweets from "./tweet/FeedOfTweets";
-import Tweet from "./tweet/SmallTweet";
 import {COLORS} from "../constants"
 import moment from "moment";
 import {GoLocation} from "react-icons/go"
 import {AiOutlineCalendar} from "react-icons/ai"
 import { CircularProgress } from "@mui/material";
+import useFetch from "../hooks/useFetch";
+import Error from "./Error"
+import LoadManager from "./LoadManager";
 
 const Profile = ()=>{
-    const [profile, setUser] = useState(null)
-    const [tweets, setTweets] = useState(null);
-    const [feed, setFeed] = useState(null);
-
     const handle = useParams().profileId;
-
-    useEffect(()=>{
-        fetch(`/api/${handle}/profile`)
-        .then((res)=>res.json())
-        .then((data)=>{
-            setUser(data.profile)
-        });
-
-        fetch(`/api/${handle}/feed`)
-        .then((res)=>res.json())
-        .then((data)=>{
-            setTweets(data.tweetsById)
-            setFeed(data.tweetIds)
-        });
-    }, [handle])
-
+    const [data, loadingStatus] = useFetch(`/api/${handle}/profile`)
+    const profile = data?data.profile:null;
     return (
-        <Wrapper>
-            {profile===null && <CircularProgress/>}
-            {profile!==null && <>
-                    <img className="banner" src={profile.bannerSrc}/>
-                    <div className="avatarFollow">
-                        <img className="avatar" src={profile.avatarSrc}/>
-                        <button className="follow">{profile.isBeingFollowedByYou?"Following":"Follow"}</button>
-                    </div>
+            loadingStatus==="loading" ? <CircularProgress/>
+            :loadingStatus==="error" ? <Error/>
+            :<Wrapper>
+                <img className="banner" src={profile.bannerSrc}/>
+                <div className="avatarFollow">
+                    <img className="avatar" src={profile.avatarSrc}/>
+                    <button className="follow">{profile.isBeingFollowedByYou?"Following":"Follow"}</button>
+                </div>
                 <div>
                     <h1>{profile.displayName}</h1>
                     <h2>
@@ -58,9 +41,8 @@ const Profile = ()=>{
                     <button>Media</button>
                     <button>Likes</button>
                 </div>
-                <FeedOfTweets feed={feed} tweets={tweets}/>
-            </>}
-        </Wrapper>
+                <FeedOfTweets url={`/api/${handle}/feed`}/>
+            </Wrapper>
     )
 }
 export default Profile;

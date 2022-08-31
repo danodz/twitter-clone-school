@@ -1,22 +1,13 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext } from "react";
+import useFetch from "../hooks/useFetch";
 
 export const CurrentUserContext = createContext(null);
 
 export const CurrentUserProvider = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState(null);
-    const [status, setStatus] = useState("loading");
-
-    useEffect(()=>{
-        fetch("/api/me/profile")
-        .then((res)=>res.json())
-        .then((userData)=>{
-            setCurrentUser(userData.profile)
-            setStatus("idle");
-        });
-    }, [])
-
+    const [currentUser, currentUserLoadingStatus] = useFetch("/api/me/profile");
+    
     return (
-        <CurrentUserContext.Provider value={{ currentUser, status }}>
+        <CurrentUserContext.Provider value={{ currentUser, currentUserLoadingStatus }}>
             {children}
         </CurrentUserContext.Provider>
     );

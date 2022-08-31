@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
 import Tweet from "./SmallTweet";
-import { CircularProgress } from '@mui/material';
+import useFetch from "../../hooks/useFetch";
+import LoadManager from "../LoadManager";
+import { CircularProgress } from "@mui/material";
+import Error from "../Error";
 
-const FeedOfTweets = ({tweets, feed})=>{
+const FeedOfTweets = ({url})=>{
+    const [data, status] = useFetch(url);
+
     return (
-        <>
-            {feed===null && <CircularProgress/>}
-            {feed!==null && 
-                feed.map((id)=>{
-                    const tweet = tweets[id];
-                    return <Tweet key={id} tweet={tweet}/>
-                })
-            }
-        </>
+        status==="loading" ? <CircularProgress/>
+        :status==="error" ? <Error/>
+        :<>{data.tweetIds.map((id)=>{
+                const tweet = data.tweetsById[id];
+                return <Tweet key={id} tweet={tweet}/>
+            })}</>
     )
 }
 export default FeedOfTweets;

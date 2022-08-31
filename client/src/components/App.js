@@ -8,29 +8,29 @@ import Sidebar from "./Sidebar.js";
 import styled from "styled-components";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext.js";
-import { CircularProgress } from "@mui/material";
+import LoadManager from "./LoadManager.js";
 
 function App() {
-  const {currentUser, status} = useContext(CurrentUserContext)
-
+  const {currentUser, currentUserLoadingStatus} = useContext(CurrentUserContext)
 
   return (
     <Router>
-      {status==="loading" && <CircularProgress/>}
-      {status==="idle" && <Wrapper>
-        <div className="leftSide">
-          <Sidebar/>
-        </div>
-        <div className="rightSide">
-          <Routes>
-            <Route path="/" element={<HomeFeed/>}/>
-            <Route path="/notifications" element={<Notifications/>}/>
-            <Route path="/bookmarks" element={<Bookmarks/>}/>
-            <Route path="/tweet/:tweetId" element={<TweetDetails/>}/>
-            <Route path="/:profileId" element={<Profile/>}/>
-          </Routes>
-        </div>
-      </Wrapper>}
+      <LoadManager status={currentUserLoadingStatus}>
+        <Wrapper>
+          <div className="leftSide">
+            <Sidebar/>
+          </div>
+          <div className="rightSide">
+            <Routes>
+              <Route path="/" element={<HomeFeed/>}/>
+              <Route path="/notifications" element={<Notifications/>}/>
+              <Route path="/bookmarks" element={<Bookmarks/>}/>
+              <Route path="/tweet/:tweetId" element={<TweetDetails/>}/>
+              <Route path="/:profileId" element={<Profile/>}/>
+            </Routes>
+          </div>
+        </Wrapper>
+      </LoadManager>
     </Router>
   );
 }
