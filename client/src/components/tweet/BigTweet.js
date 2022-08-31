@@ -1,6 +1,7 @@
 import moment from "moment";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { COLORS } from "../../constants";
 import ActionButtons from "./ActionButtons";
 import RetweetedFrom from "./RetweetedFrom";
 import TweetContent from "./TweetContent";
@@ -20,7 +21,7 @@ const BigTweet = ({tweet})=>{
             </div>
             <TweetContent status={tweet.status} medias={tweet.media}/>
             <span className="date">{moment(tweet.timestamp).format("HH:MM A · MMM Do YYYY")}</span>
-            <ActionButtons isLiked={tweet.isLiked}/>
+            <ActionButtons isLiked={tweet.isLiked} isRetweeted={tweet.isLiked} numLikes={tweet.numLikes} numRetweets={tweet.numRetweets}/>
 
         </Wrapper>
     )
@@ -29,6 +30,9 @@ export default BigTweet;
 
 const Wrapper = styled.div`
     width: 600px;
+    border: 1px solid ${COLORS.lightgray};
+    border-top: none;
+    padding: 10px;
 
     .user img{
         width: 50px;

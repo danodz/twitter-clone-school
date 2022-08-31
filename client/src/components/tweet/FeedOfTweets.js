@@ -1,12 +1,11 @@
 import Tweet from "./SmallTweet";
 import useFetch from "../../hooks/useFetch";
-import LoadManager from "../LoadManager";
 import { CircularProgress } from "@mui/material";
 import Error from "../Error";
 
 const FeedOfTweets = ({url})=>{
     const [data, status] = useFetch(url);
-
+    
     return (
         status==="loading" ? <CircularProgress/>
         :status==="error" ? <Error/>

@@ -31,7 +31,7 @@ const SmallTweet = ({tweet})=>{
                             <span className="date">{moment(tweet.timestamp).format("MMM Do")}</span>
                         </div>
                         <TweetContent status={tweet.status} medias={tweet.media}/>
-                        <ActionButtons isLiked={tweet.isLiked}/>
+                        <ActionButtons isLiked={tweet.isLiked} isRetweeted={tweet.isLiked} numLikes={tweet.numLikes} numRetweets={tweet.numRetweets}/>
                     </div>
                 </Link>
             </div>
