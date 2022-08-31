@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BigTweet from "./tweet/BigTweet"
@@ -17,7 +18,7 @@ const TweetDetails = ()=>{
 
     return (
         <>
-            {tweet ? <BigTweet tweet={tweet} />: "LOADING"}
+            {tweet ? <BigTweet tweet={tweet} />: <CircularProgress/>}
         </>
     )
 }

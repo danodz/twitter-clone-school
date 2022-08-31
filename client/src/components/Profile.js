@@ -7,6 +7,7 @@ import {COLORS} from "../constants"
 import moment from "moment";
 import {GoLocation} from "react-icons/go"
 import {AiOutlineCalendar} from "react-icons/ai"
+import { CircularProgress } from "@mui/material";
 
 const Profile = ()=>{
     const [profile, setUser] = useState(null)
@@ -32,7 +33,7 @@ const Profile = ()=>{
 
     return (
         <Wrapper>
-            {profile===null && "LOADING"}
+            {profile===null && <CircularProgress/>}
             {profile!==null && <>
                     <img className="banner" src={profile.bannerSrc}/>
                     <div className="avatarFollow">

@@ -8,6 +8,7 @@ import Sidebar from "./Sidebar.js";
 import styled from "styled-components";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext.js";
+import { CircularProgress } from "@mui/material";
 
 function App() {
   const {currentUser, status} = useContext(CurrentUserContext)
@@ -15,7 +16,7 @@ function App() {
 
   return (
     <Router>
-      {status==="loading" && <>LOADING</>}
+      {status==="loading" && <CircularProgress/>}
       {status==="idle" && <Wrapper>
         <div className="leftSide">
           <Sidebar/>
