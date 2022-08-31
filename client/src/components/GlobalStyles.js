@@ -56,4 +56,11 @@ a{
     color: black;
     text-decoration: none;
 }
+
+.MuiCircularProgress-root{
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 `;
