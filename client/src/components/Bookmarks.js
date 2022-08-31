@@ -1,6 +1,9 @@
+import Header from "./Header";
+
 const Bookmarks = ()=>{
     return (
         <>
+            <Header pageName="Bookmarks"/>
             Bookmarks
         </>
     )

@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext.js";
 import LoadManager from "./LoadManager.js";
+import { COLORS } from "../constants.js";
 
 function App() {
   const {currentUser, currentUserLoadingStatus} = useContext(CurrentUserContext)

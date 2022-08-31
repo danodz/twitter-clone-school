@@ -1,17 +1,16 @@
 import { FaBomb } from "react-icons/fa";
 import styled from "styled-components";
+import Header from "./Header";
 
 const Error = ()=>{
     return (
-        <>
-            <Wrapper>
-                <FaBomb size={50}/>
-                <h1>An unknown error has occured.</h1>
-                <p>
-                    Please try refreshing the page, or <a href="#">contact support</a> if the problem persists
-                </p>
-            </Wrapper>
-        </>
+        <Wrapper>
+            <FaBomb size={50}/>
+            <h1>An unknown error has occured.</h1>
+            <p>
+                Please try refreshing the page, or <a href="#">contact support</a> if the problem persists
+            </p>
+        </Wrapper>
     )
 }
 export default Error;

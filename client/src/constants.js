@@ -4,5 +4,7 @@ export const COLORS = {
     primaryTransparent: "hsla(258deg, 100%, 50%, 0.2)",
 
     grey: "#393939",
-    gray: "#393939"
+    gray: "#393939",
+    lightgrey: "#ccc",
+    lightgray: "#ccc"
 };

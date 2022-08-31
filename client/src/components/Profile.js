@@ -103,13 +103,9 @@ const Wrapper = styled.div`
         margin-left: 25px;
     }
 
-    .sectionBtns{
-        margin-bottom: 25px;
-    }
-
     .sectionBtns button{
         color: gray;
-        width: 33%;
+        width: calc(100%/3);
         border: none;
         border-bottom-color: currentcolor;
         border-bottom-style: none;

@@ -1,6 +1,7 @@
 import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { COLORS } from "../../constants";
 import ActionButtons from "./ActionButtons";
 import RetweetedFrom from "./RetweetedFrom";
 import TweetContent from "./TweetContent";
@@ -14,34 +15,36 @@ const SmallTweet = ({tweet})=>{
     }
 
     return ( <>
-        {tweet.retweetFrom && <RetweetedFrom author={tweet.retweetFrom}/>}
         <Wrapper>
-            <Link to={"/tweet/"+tweet.id}>
-                <div className="userImg">
-                    <img src={tweet.author.avatarSrc} alt="user avatar"/>
-                </div>
-                <div className="tweet">
-                    <div>
-                        <div className="author" onClick={navigateToAuthor}>
-                            <span className="name">{tweet.author.displayName}</span>
-                            <span className="handle">@{tweet.author.handle} ·</span>
-                        </div>
-                        <span className="date">{moment(tweet.timestamp).format("MMM Do")}</span>
+            {tweet.retweetFrom && <RetweetedFrom author={tweet.retweetFrom}/>}
+            <div>
+                <Link to={"/tweet/"+tweet.id}>
+                    <div className="userImg">
+                        <img src={tweet.author.avatarSrc} alt="user avatar"/>
                     </div>
-                    <TweetContent status={tweet.status} medias={tweet.media}/>
-                    <ActionButtons isLiked={tweet.isLiked}/>
-                </div>
-            </Link>
+                    <div className="tweet">
+                        <div>
+                            <div className="author" onClick={navigateToAuthor}>
+                                <span className="name">{tweet.author.displayName}</span>
+                                <span className="handle">@{tweet.author.handle} ·</span>
+                            </div>
+                            <span className="date">{moment(tweet.timestamp).format("MMM Do")}</span>
+                        </div>
+                        <TweetContent status={tweet.status} medias={tweet.media}/>
+                        <ActionButtons isLiked={tweet.isLiked}/>
+                    </div>
+                </Link>
+            </div>
         </Wrapper>
     </>)
 }
 export default SmallTweet;
 
 const Wrapper = styled.div`
-    display: flex;
     width: 600px;
-    border-bottom: 1px solid grey;
-    margin-bottom: 25px;
+    border: 1px solid ${COLORS.lightgray};
+    border-top: none;
+    padding: 10px;
     cursor: pointer;
 
     .userImg img{

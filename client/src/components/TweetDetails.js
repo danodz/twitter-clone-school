@@ -5,6 +5,7 @@ import useFetch from "../hooks/useFetch";
 import BigTweet from "./tweet/BigTweet"
 import Error from "./Error"
 import LoadManager from "./LoadManager";
+import Header from "./Header";
 
 const TweetDetails = ()=>{
     const id = useParams().tweetId;
@@ -12,7 +13,7 @@ const TweetDetails = ()=>{
     return (
         loadingStatus==="loading" ? <CircularProgress/>
         :loadingStatus==="error" ? <Error/>
-        :<BigTweet tweet={data.tweet} />
+        :<><Header pageName="Meow"/><BigTweet tweet={data.tweet} /></>
     )
 }
 export default TweetDetails;
