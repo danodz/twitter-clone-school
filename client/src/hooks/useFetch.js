@@ -4,7 +4,14 @@ const useFetch = (url) =>{
     const [response, setResponse] = useState(null);
     const [status, setStatus] = useState("loading");
 
+    const [refetch, setRefetch] = useState(false);
+
+    const reload = ()=>{
+        setRefetch(!refetch);
+    }
+
     useEffect(()=>{
+        setStatus("loading");
         fetch(url)
         .then((res)=>{
             if(res.ok){
@@ -21,9 +28,9 @@ const useFetch = (url) =>{
         .catch((err)=>{
             console.log(err)
         })
-    }, [url])
+    }, [url, refetch])
 
-    return [response, status];
+    return [response, status, reload];
 }
 
 export default useFetch;
