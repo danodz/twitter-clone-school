@@ -1,3 +1,12 @@
+# Context
+
+First react project made for concordia's Diploma in Full-Stack Web Development.
+After two weeks of classes on react, we were assigned this 4 day project. The backend was provided, we had to do the frontend from scratch.
+
+Below is the original readme with the project's requirements:
+
+---
+
 # Twitter project
 
 This project asks you to create a Twitter clone, "Critter":
